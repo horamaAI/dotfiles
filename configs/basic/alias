@@ -1,0 +1,21 @@
+# shortcuts
+alias emacs='emacsclient -t'
+alias psmy='ps uxf'
+
+# actions on folders
+alias treefolders='ls -aR -I.git | grep ":$" | perl -pe '"'"'s/:$//;s/[^-][^\/]*\//    /g;s/^    (\S)/└── \1/;s/(^    |    (?= ))/│   /g;s/    (\S)/└── \1/'"'"
+alias ..='cd ../'
+alias .2='cd ../../'
+alias .3='cd ../../../'
+alias memacs='~/Documents/repos/org/memacs'
+alias merepos='~/Documents/repos'
+
+# further git actions
+alias gsynch="bash ~/bin/git-sync.sh"
+
+# utils
+alias lsla='ls -la -I'
+alias doclean='sudo apt autoremove && sudo apt autoclean && sudo apt remove && sudo apt clean'
+alias doupdates='sudo apt update && sudo apt upgrade && doclean'
+
+
