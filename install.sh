@@ -14,6 +14,9 @@ else
     error "Failed to obtain sudo credentials."
 fi
 
+export PROFILE_NAME=dmahoro
 
+# setup default profile
+./basic/basic.h
 
 # if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
