@@ -1,16 +1,18 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 echo "init basic profile"
 
 # step 1. set up directories structure
 # fetch basic environment variables, after that some basic environment variables should be loaded and can be used
-source ../../configs/basic/basic.env
+source $DOTFILES_DIR/configs/basic/basic.env
 # load utils
 source $PROFILE_CONFIGS_DIR/bin/functions
 # create main folders structure
-backup_ifs="$IFS"
+buff="$IFS"
+IFS=:
 (
     for dir in ${PROFILE_BASIC_DIRS[@]}; do
-	mkdir -p $dir
+	mkdir -vp $dir
     done
     )
+IFS="$backup_ifs"
