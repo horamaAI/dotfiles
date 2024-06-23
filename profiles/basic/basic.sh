@@ -7,3 +7,10 @@ echo "init basic profile"
 source ../../configs/basic/basic.env
 # load utils
 source $PROFILE_CONFIGS_DIR/bin/functions
+# create main folders structure
+backup_ifs="$IFS"
+(
+    for dir in ${PROFILE_BASIC_DIRS[@]}; do
+	mkdir -p $dir
+    done
+    )

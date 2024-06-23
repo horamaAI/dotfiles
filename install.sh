@@ -17,6 +17,6 @@ fi
 export PROFILE_NAME=dmahoro
 
 # setup default profile
-./basic/basic.h
+./basic/basic.sh
 
 # if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
