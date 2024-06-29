@@ -16,3 +16,8 @@ IFS=:
     done
     )
 IFS="$backup_ifs"
+
+# step 2. install basic tools and setup basic env, tools, aliases, etc.
+apt_pkgs=$PROFILE_CONFIGS_DIR/apt.list
+opt_pkgs=$PROFILE_CONFIGS_DIR/opt.list
+pkgs=$apt_pkgs:$opt_pkgs
