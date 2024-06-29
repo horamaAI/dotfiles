@@ -21,3 +21,13 @@ IFS="$backup_ifs"
 apt_pkgs=$PROFILE_CONFIGS_DIR/apt.list
 opt_pkgs=$PROFILE_CONFIGS_DIR/opt.list
 pkgs=$apt_pkgs:$opt_pkgs
+
+buff="$IFS"
+IFS=:
+(
+    for pkg in ${pkgs[@]}; do
+	
+    done
+    )
+IFS="$backup_ifs"
+
