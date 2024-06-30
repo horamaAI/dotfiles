@@ -26,7 +26,7 @@ buff="$IFS"
 IFS=:
 (
     for pkg in ${pkgs[@]}; do
-	
+	echo "smthing"
     done
     )
 IFS="$backup_ifs"

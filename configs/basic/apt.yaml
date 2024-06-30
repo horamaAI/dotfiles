@@ -1,14 +1,18 @@
 ---
+note: install with debian like apt tool
 command: sudo apt install
-packages:
-  - build-essential
-  - git
-  - tree
-  - curl
-  - screen
-    description: GNU screen, multiplexer
-  - g++
-  - python
-  - ccze
-    description: log files coloriser 
-  git, tree, curl, wget, screen (GNU screen, multiplexer), g++, python, java jdk (basic one: default-jre), valgrind, ccze (log files colorizer)
+  pkgs: 
+    - build-essential
+    - git
+    - tree
+    - curl
+    - screen
+      description: GNU screen, multiplexer
+    - g++
+    - python
+    - ccze
+      description: log files coloriser
+    - wget
+todo:
+  - java jdk (basic one: default-jre), valgrind
+...

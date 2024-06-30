@@ -22,6 +22,7 @@ else
 fi
 
 export PROFILE_NAME=dmahoro
+export PROFILE_NAME=basic
 
 # always setup default profile first
 ./profiles/basic/basic.sh
