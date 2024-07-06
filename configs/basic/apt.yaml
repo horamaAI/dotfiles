@@ -2,7 +2,6 @@
 note: install with debian like apt tool
 command: sudo apt install
   pkgs: 
-    - build-essential
     - git
     - tree
     - curl
