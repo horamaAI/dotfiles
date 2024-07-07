@@ -1,17 +1,21 @@
 ---
 note: install with debian like apt tool
-command: sudo apt install
-  pkgs: 
+apt:
+  command: sudo apt install
+  pkgs:
     - git
     - tree
-    - curl
-    - screen
-      description: GNU screen, multiplexer
+    - curl  # likely already installed, but do it anyway
+    - screen  # GNU screen, multiplexer
     - g++
     - python
-    - ccze
-      description: log files coloriser
+    - yamllint  # yaml file linter
+    - ccze  # log files coloriser
     - wget
+dpkg:
+  command: ""
+  pkgs:
+    - ""
 todo:
   - java jdk (basic one: default-jre), valgrind
 ...
