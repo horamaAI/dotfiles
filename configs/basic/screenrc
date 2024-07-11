@@ -1,0 +1,15 @@
+#Do not show copyright msg at the start of a session
+startup_message off
+
+# trick to use M-1 as the gnu screen prefix (source: https://stackoverflow.com/questions/1543427/gnu-screen-changing-the-default-escape-command-key-to-alt-x)
+# set prefix to "C-?", but also set its "alias" to ~M-1~
+escape ^@a
+
+# use screen auxiliary register to save C-a into register S
+register S ^@
+
+# M-1 produces ^A and acts as an escape key
+bindkey "^[1" process S
+
+# bind ~[prefix] X~ to remove (:remove) current split region
+bind X remove
