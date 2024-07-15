@@ -1,21 +1,23 @@
 ---
 note: install with debian like apt tool
-apt:
-  command: sudo apt install
-  pkgs:
-    - git
-    - tree
-    - curl  # likely already installed, but do it anyway
-    - screen  # GNU screen, multiplexer
-    - g++
-    - python
-    - yamllint  # yaml file linter
-    - ccze  # log files coloriser
-    - wget
-dpkg:
-  command: ""
-  pkgs:
-    - ""
+install-entries: # by default install-entries should have is-sudo set to true
+  apt:
+    description: install via debian Advanced Package Tool
+    command: apt install
+    pkgs:
+      - git
+      - tree
+      - curl  # likely already installed, but do it anyway
+      - screen  # GNU screen, multiplexer
+      - g++
+      - python
+      - yamllint  # yaml file linter
+      - ccze  # log files coloriser
+      - wget
+  dpkg:
+    command: ""
+    pkgs:
+      - ""
 todo:
   - java jdk (basic one: default-jre), valgrind
 ...
