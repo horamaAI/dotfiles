@@ -1,0 +1,2 @@
+# allow using hash symbol is the symbol to comment current command
+bindkey "^[#" pound-insert  # to comment current command
