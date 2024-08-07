@@ -1,0 +1,10 @@
+%YAML 1.1
+---
+$schema: "http://json-schema.org/draft-04/schema"
+id: "/schemas/cmds"
+title: yaml schemas for yaml command entries
+description: |
+  A yaml schema to validate command entries given in yaml format
+  Originally made for shell script to build up dotfiles
+type: object
+properties:
