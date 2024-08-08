@@ -8,3 +8,9 @@ description: |
   Originally made for shell script to build up dotfiles
 type: object
 properties:
+  dummy
+apt:
+  type: object
+command:
+  type: string
+
