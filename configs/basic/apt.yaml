@@ -11,7 +11,8 @@ install-entries: # by default install-entries should have is-sudo set to true
       - screen  # GNU screen, multiplexer
       - g++
       - python
-      - yamllint  # yaml file linter
+      - yq # yaml format validator and yaml file browsing, filtering, selection
+      - yamllint  # yaml file linter, schema validator, sets much stricter standard than yq
       - ccze  # log files coloriser
       - wget
   dpkg:
