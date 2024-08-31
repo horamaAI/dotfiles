@@ -1,0 +1,12 @@
+---
+note: install JS tools through npm
+install-entries: # by default install-entries should have is-sudo set to true
+  npm:
+    description: |
+      install via Node Package Manager (npm),
+      requires npm to be installed first,
+      package will be installed globally (-g) 
+    command: npm install -g
+    pkgs:
+      - pajv # yaml files schema validator (to validate yaml instance against schema)
+...

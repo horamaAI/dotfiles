@@ -11,15 +11,14 @@ install-entries: # by default install-entries should have is-sudo set to true
       - screen  # GNU screen, multiplexer
       - g++
       - python
-      - yq # yaml format validator, that also does yaml file browsing, filtering, selection, etc.
-      - python3 # python3.8+ required
-      - yamale # yaml files validator against given schema, installed through 'pip' => python3.8+ required
+      - yq # yaml format validator, also yaml browsing, filtering, selection, etc. (for yaml schema validator, see pajv in npm install)
+      - nodejs npm # nodejs: server side JS runtime environment; npm: node package manager
       - ccze  # log files coloriser
       - wget
   dpkg:
-    command: ""
+    command: dummy command
     pkgs:
-      - ""
+      - dummy pkg
 todo:
   - java jdk (basic one: default-jre), valgrind
 ...
