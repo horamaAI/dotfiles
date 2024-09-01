@@ -21,10 +21,12 @@ else
     echo "Failed to obtain sudo credentials."
 fi
 
-# export PROFILE_NAME=dmahoro
-export PROFILE_NAME=basic
-
 # always setup default profile first
 ./profiles/basic/basic.sh
 
 # if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
+
+# if selected basic, then do nothing, basic profile is already configured,
+# export PROFILE_NAME=dmahoro
+
+

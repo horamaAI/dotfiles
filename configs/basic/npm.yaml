@@ -8,5 +8,5 @@ install-entries: # by default install-entries should have is-sudo set to true
       package will be installed globally (-g) 
     command: npm install -g
     pkgs:
-      - pajv # yaml files schema validator (to validate yaml instance against schema)
+      - 
 ...
