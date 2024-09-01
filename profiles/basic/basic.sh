@@ -11,7 +11,7 @@ source ./basic.env
 source $BASIC_CONFIGS_DIR/bin/functions/misc.sh
 
 # create basic folders structure
-buff="$IFS"
+buff_ifs="$IFS"
 IFS=:
 (
     for dir in ${PROFILES_DIRS_BASIC[@]}; do
@@ -33,17 +33,39 @@ npm_essentials=(
     # add here any other essential tool to load first (not comma separated)
 )
 
+buff_ifs="$IFS"
+IFS=:
+(
+    docommand="sudo apt install"
+    for pkg in ${apt_essentials[@]}; do
+      echo "attempting to install: '$pkg' with 'apt install'"
+      eval "$docommand $pkg"
+    done
+    )
+IFS="$buff_ifs"
+
+buff_ifs="$IFS"
+IFS=:
+(
+    docommand="sudo npm install -g"
+    for pkg in ${npm_essentials[@]}; do
+      echo "attempting to install: '$pkg' with npm"
+      eval "$docommand $pkg"
+    done
+    )
+IFS="$buff_ifs"
+
 # step 2. install basic tools and setup basic env, tools, aliases, etc.
 apt_pkgs=$PROFILE_CONFIGS_DIR/apt.list
 opt_pkgs=$PROFILE_CONFIGS_DIR/opt.list
 pkgs=$apt_pkgs:$opt_pkgs
 
-buff="$IFS"
+buff_ifs="$IFS"
 IFS=:
 (
     for pkg in ${pkgs[@]}; do
       echo "smthing"
     done
     )
-IFS="$backup_ifs"
+IFS="$buff_ifs"
 
