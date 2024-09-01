@@ -21,7 +21,7 @@ else
     echo "Failed to obtain sudo credentials."
 fi
 
-export PROFILE_NAME=dmahoro
+# export PROFILE_NAME=dmahoro
 export PROFILE_NAME=basic
 
 # always setup default profile first

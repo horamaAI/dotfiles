@@ -2,17 +2,15 @@
 
 echo "init basic profile"
 
-# step 0. first install essential tools needed for later use
+# step 0. always install first build-essential tools
 essentials=(
     build-essential
-    yq # for yaml files handling
+    # add here any other essential tool to load first (not comma separated)
 )
-
-
 
 # step 1. set up directories structure
 # fetch basic environment variables, after that some basic environment variables should be loaded and can be used
-source $DOTFILES_DIR/configs-shared/basic/basic.env
+source $DOTFILES_DIR/configs/basic/basic.env
 # load utils
 source $PROFILE_CONFIGS_DIR/bin/functions/misc.sh
 # create main folders structure
