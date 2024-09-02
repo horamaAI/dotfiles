@@ -1,21 +1,26 @@
 #!/usr/bin/env bash
 
-echo "init basic profile"
+echo "initializing basic profile"
 DIR=$(dirname "$0")
 cd "$DIR"
 
+pwd
+
 # step 0. set up directories structure
 # fetch basic environment variables, after that basic environment variables should be loaded and ready to be used
-source ./basic.env
+source $DOTFILES_DIR/configs/basic/basic.env
 # load utils
-source $BASIC_CONFIGS_DIR/bin/functions/misc.sh
+#source $BASIC_CONFIGS_DIR/bin/functions/misc.sh
+for funcs in $BASIC_CONFIGS_DIR/bin/functions/*; do
+  source $funcs
+done
 
 # create basic folders structure
 buff_ifs="$IFS"
 IFS=:
 (
     for dir in ${PROFILES_DIRS_BASIC[@]}; do
-      mkdir -vp $dir
+      make_dir $dir
     done
     )
 IFS="$buff_ifs"
@@ -23,8 +28,8 @@ IFS="$buff_ifs"
 # step 1. always install first build-essential, and following tools
 apt_essentials=(
     build-essential # g++, make, etc.
-    yq # to parse yaml files containing required installations, will install python3
-    npm # for pajv
+    # yq # to parse yaml files containing required installations, will install python3
+    # npm # for pajv
     # add here any other essential tool to load first (not comma separated)
 )
 
@@ -38,8 +43,12 @@ IFS=:
 (
     docommand="sudo apt install"
     for pkg in ${apt_essentials[@]}; do
-      echo "attempting to install: '$pkg' with 'apt install'"
-      eval "$docommand $pkg"
+      # echo "attempting to install: '$pkg' with 'apt install'"
+      n=$(wc -w <<< "$docommand")
+      # execute_command "$n $docommand $docommand $pkg"
+      echo "do following: execute_command $n $docommand $docommand $pkg"
+      # execute_command "$n $docommand $docommand $pkg"
+      execute_command $n $docommand $docommand $pkg
     done
     )
 IFS="$buff_ifs"
@@ -49,11 +58,15 @@ IFS=:
 (
     docommand="sudo npm install -g"
     for pkg in ${npm_essentials[@]}; do
-      echo "attempting to install: '$pkg' with npm"
-      eval "$docommand $pkg"
+      echo "do nothing"
+      # echo "attempting to install: '$pkg' with npm"
+      # eval "$docommand $pkg"
+      # execute_command "1 npm $docommand $pkg"
     done
     )
 IFS="$buff_ifs"
+
+exit $?
 
 # step 2. install basic tools and setup basic env, tools, aliases, etc.
 apt_pkgs=$PROFILE_CONFIGS_DIR/apt.list
