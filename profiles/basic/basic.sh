@@ -6,7 +6,7 @@ cd "$DIR"
 
 pwd
 
-# step 0. set up directories structure
+# step 0. set up directories structure, and other basic utils
 # fetch basic environment variables, after that basic environment variables should be loaded and ready to be used
 source $DOTFILES_DIR/configs/basic/basic.env
 # load utils
@@ -28,8 +28,8 @@ IFS="$buff_ifs"
 # step 1. always install first build-essential, and following tools
 apt_essentials=(
     build-essential # g++, make, etc.
-    # yq # to parse yaml files containing required installations, will install python3
-    # npm # for pajv
+    yq # to parse yaml files containing required installations, will install python3
+    npm # for pajv
     # add here any other essential tool to load first (not comma separated)
 )
 
@@ -38,26 +38,19 @@ npm_essentials=(
     # add here any other essential tool to load first (not comma separated)
 )
 
-buff_ifs="$IFS"
-IFS=:
-(
-    docommand="sudo apt install"
-    for pkg in ${apt_essentials[@]}; do
-      execute_command "apt install" $docommand $pkg
-    done
-    )
-IFS="$buff_ifs"
+execute_command "apt" "sudo apt install" "${apt_essentials[*]}"
+echo "do nothing for now, npm reinstalls everything, it doesn't check context"
+# execute_command "npm" "sudo npm install -g" "${npm_essentials[*]}"
 
-buff_ifs="$IFS"
-IFS=:
-(
-    docommand="sudo npm install -g"
-    for pkg in ${npm_essentials[@]}; do
-      echo "do nothing for now, npm reinstalls everything"
-      # execute_command "npm" $docommand $pkg
-    done
-    )
-IFS="$buff_ifs"
+# buff_ifs="$IFS"
+# IFS=:
+# (
+#     docommand="sudo apt install"
+#     for pkg in ${apt_essentials[@]}; do
+#       execute_command "apt install" $docommand $pkg
+#     done
+#     )
+# IFS="$buff_ifs"
 
 exit $?
 

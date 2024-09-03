@@ -1,7 +1,8 @@
 ---
 note: install with debian like apt tool
 install-entries: # by default install-entries should have is-sudo set to true
-  apt:
+  entry:
+    name: apt
     description: install via debian Advanced Package Tool
     command: apt install
     pkgs:
@@ -15,10 +16,10 @@ install-entries: # by default install-entries should have is-sudo set to true
       - nodejs npm # nodejs: server side JS runtime environment; npm: node package manager
       - ccze  # log files coloriser
       - wget
-  dpkg:
-    command: dummy command
+  entry:
+    name: dpkg
+    description: debian package manager
+    command: dpkg -i
     pkgs:
       - dummy pkg
-todo:
-  - java jdk (basic one: default-jre), valgrind
 ...

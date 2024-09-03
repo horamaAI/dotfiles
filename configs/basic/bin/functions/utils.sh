@@ -9,7 +9,7 @@ make_dir() {
 execute_command() {
   local msg=$1
   local command_to_run="$2 $3"
-  echo "attempting to run command: '$command_to_run' with '$msg'"
-  # eval "$command_to_run"
+  echo "attempting to run command: '$command_to_run' using manager: '$msg'"
+  eval "$command_to_run"
 }
 
