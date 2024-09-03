@@ -43,12 +43,7 @@ IFS=:
 (
     docommand="sudo apt install"
     for pkg in ${apt_essentials[@]}; do
-      # echo "attempting to install: '$pkg' with 'apt install'"
-      n=$(wc -w <<< "$docommand")
-      # execute_command "$n $docommand $docommand $pkg"
-      echo "do following: execute_command $n $docommand $docommand $pkg"
-      # execute_command "$n $docommand $docommand $pkg"
-      execute_command $n $docommand $docommand $pkg
+      execute_command "apt install" $docommand $pkg
     done
     )
 IFS="$buff_ifs"
@@ -58,10 +53,8 @@ IFS=:
 (
     docommand="sudo npm install -g"
     for pkg in ${npm_essentials[@]}; do
-      echo "do nothing"
-      # echo "attempting to install: '$pkg' with npm"
-      # eval "$docommand $pkg"
-      # execute_command "1 npm $docommand $pkg"
+      echo "do nothing for now, npm reinstalls everything"
+      # execute_command "npm" $docommand $pkg
     done
     )
 IFS="$buff_ifs"
