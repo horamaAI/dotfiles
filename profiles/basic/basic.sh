@@ -30,6 +30,7 @@ apt_essentials=(
     build-essential # g++, make, etc.
     yq # to parse yaml files containing required installations, will install python3
     npm # for pajv
+    stow # for linking generated target profile and home (automatic symlinks)
     # add here any other essential tool to load first (not comma separated)
 )
 
