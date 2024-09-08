@@ -6,11 +6,23 @@ title: yaml schemas for yaml command entries
 description: |
   A yaml schema to validate command entries given in yaml format
   Originally made for shell script to build up dotfiles
-type: object
-properties:
-  dummy
-apt:
-  type: object
-command:
-  type: string
-
+components:
+  command_entries:
+    type: array
+    properties:
+      items:
+        $ref: '#/components/entry'
+  entry:
+    type: object
+    properties:
+      name:
+        type: string
+      command:
+        type: string
+      description:
+        type: string
+      pkgs:
+        $ref: '#/components/pkgs'
+  pkgs:
+    type: string
+... 

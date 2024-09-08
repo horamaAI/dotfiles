@@ -1,6 +1,5 @@
 ---
-note: install with debian like apt tool
-install-entries: # by default install-entries should have is-sudo set to true
+command-entries: # by default install-entries should have is-sudo set to true
   entry:
     name: apt
     description: install via debian Advanced Package Tool
