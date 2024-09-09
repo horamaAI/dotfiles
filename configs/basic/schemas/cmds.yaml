@@ -1,28 +1,38 @@
-%YAML 1.1
+%YAML 1.2
 ---
 $schema: "http://json-schema.org/draft-04/schema"
 id: "/schemas/cmds"
 title: yaml schemas for yaml command entries
 description: |
-  A yaml schema to validate command entries given in yaml format
-  Originally made for shell script to build up dotfiles
-components:
+  A yaml schema to validate command entries given in yaml format.
+  Original incentive was (is so far) to run shell install commands that are read from yaml documents.
+  Needed for dotfiles install.
+type: object
+properties:
   command_entries:
     type: array
-    properties:
-      items:
-        $ref: '#/components/entry'
-  entry:
-    type: object
-    properties:
-      name:
-        type: string
-      command:
-        type: string
-      description:
-        type: string
-      pkgs:
-        $ref: '#/components/pkgs'
-  pkgs:
-    type: string
+    items:
+      $ref: '#/entry'
+    minItems: 1
+additionalProperties: false
+entry:
+  type: object
+  properties:
+    name:
+      type: string
+    command:
+      type: string
+    description:
+      type: string
+    pkgs:
+      $ref: '#/pkgs'
+  required:
+    - name
+    - command
+    - description
+    - pkgs
+  additionalProperties: false
+pkgs:
+  type: array
+  items: string
 ... 

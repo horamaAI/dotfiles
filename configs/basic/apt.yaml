@@ -1,7 +1,6 @@
 ---
-command-entries: # by default install-entries should have is-sudo set to true
-  entry:
-    name: apt
+command_entries: # by default install-entries should have is-sudo set to true
+  - name: apt
     description: install via debian Advanced Package Tool
     command: apt install
     pkgs:
@@ -15,8 +14,7 @@ command-entries: # by default install-entries should have is-sudo set to true
       - nodejs npm # nodejs: server side JS runtime environment; npm: node package manager
       - ccze  # log files coloriser
       - wget
-  entry:
-    name: dpkg
+  - name: dpkg
     description: debian package manager
     command: dpkg -i
     pkgs:
