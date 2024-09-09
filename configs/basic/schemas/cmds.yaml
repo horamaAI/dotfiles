@@ -12,10 +12,10 @@ properties:
   command_entries:
     type: array
     items:
-      $ref: '#/entry'
+      $ref: '#/command_entry'
     minItems: 1
 additionalProperties: false
-entry:
+command_entry:
   type: object
   properties:
     name:
