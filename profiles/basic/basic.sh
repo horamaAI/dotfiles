@@ -8,7 +8,7 @@ pwd
 
 # step 0. set up directories structure, and other basic utils
 # fetch basic environment variables, after that basic environment variables should be loaded and ready to be used
-source $DOTFILES_DIR/configs/basic/basic.env
+source $DOTFILES_DIR/configs/basic/env/basic.env
 # load utils
 #source $BASIC_CONFIGS_DIR/bin/functions/misc.sh
 for funcs in $BASIC_CONFIGS_DIR/bin/functions/*; do
@@ -53,9 +53,12 @@ echo "do nothing for now, npm reinstalls everything, it doesn't check context"
 #     )
 # IFS="$buff_ifs"
 
+# step 2. install other required tools
+# ? and setup basic env, tools, aliases, etc.
+source $BASIC_CONFIGS_DIR/packages/setup.sh
+
 exit $?
 
-# step 2. install basic tools and setup basic env, tools, aliases, etc.
 apt_pkgs=$PROFILE_CONFIGS_DIR/apt.list
 opt_pkgs=$PROFILE_CONFIGS_DIR/opt.list
 pkgs=$apt_pkgs:$opt_pkgs

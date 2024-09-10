@@ -16,3 +16,9 @@ execute_command() {
 parse_yaml_command() {
 
 }
+
+
+# propagate function to subshells
+typeset -fx execute_command
+typeset -fx parse_yaml_command
+typeset -fx make_dir
