@@ -13,12 +13,22 @@ execute_command() {
   eval "$command_to_run"
 }
 
-parse_yaml_command() {
+# read "command_entries" (as defined in schemas/cmds.yaml) from yaml file
+# return list of commands to execute, each with arguments (all items in pkgs concatenated)
+parse_yaml_command_entry() {
 
 }
 
+find_files_by_extension() {
+  local folder_path=$1
+  local extension=$2
+  # local files=$(find * -name "$folder_path/*.$extension")
+  find $folder_path -name "*.$extension"
+}
 
 # propagate function to subshells
 typeset -fx execute_command
 typeset -fx parse_yaml_command
 typeset -fx make_dir
+typeset -fx find_files_by_extension
+
