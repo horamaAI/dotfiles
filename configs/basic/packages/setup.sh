@@ -2,7 +2,16 @@
 
 COMMENT=\#*
 
-info "Installing required packages..."
+DIR=$(dirname "$0")
+echo "input folder: $0"
+echo "folder: $DIR"
+cd "$DIR"
+
+declare -a cmds_yamls
+mapfile -d $'0' cmds_yamls < <(find_files_by_extension . yaml)
+echo "---$cmds_yamls---"
+
+#info "Installing required packages..."
 
 #eval "$(fnm env --use-on-cd)"
 #fnm use 16

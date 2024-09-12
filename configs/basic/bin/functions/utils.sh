@@ -16,14 +16,14 @@ execute_command() {
 # read "command_entries" (as defined in schemas/cmds.yaml) from yaml file
 # return list of commands to execute, each with arguments (all items in pkgs concatenated)
 parse_yaml_command_entry() {
-
+  echo "toto"
 }
 
 find_files_by_extension() {
   local folder_path=$1
   local extension=$2
   # local files=$(find * -name "$folder_path/*.$extension")
-  find $folder_path -name "*.$extension"
+  find $folder_path -name "*.$extension" -print0
 }
 
 # propagate function to subshells

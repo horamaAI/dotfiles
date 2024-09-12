@@ -55,7 +55,8 @@ echo "do nothing for now, npm reinstalls everything, it doesn't check context"
 
 # step 2. install other required tools
 # ? and setup basic env, tools, aliases, etc.
-source $BASIC_CONFIGS_DIR/packages/setup.sh
+# source $BASIC_CONFIGS_DIR/packages/setup.sh
+. $BASIC_CONFIGS_DIR/packages/setup.sh
 
 exit $?
 
