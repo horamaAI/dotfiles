@@ -2,14 +2,14 @@
 
 COMMENT=\#*
 
-DIR=$(dirname "$0")
-echo "input folder: $0"
-echo "folder: $DIR"
-cd "$DIR"
+declare -a yamls_cmds
+mapfile -d '' yamls_cmds < <(find_files_by_extension $BASIC_CONFIGS_DIR/packages/ yaml)
 
-declare -a cmds_yamls
-mapfile -d $'0' cmds_yamls < <(find_files_by_extension . yaml)
-echo "---$cmds_yamls---"
+echo "found n yaml command files: ${#yamls_cmds[@]}"
+
+for cmd_file in ${yamls_cmds[@]}; do
+  run_yaml_command_entry $cmd_file
+done
 
 #info "Installing required packages..."
 

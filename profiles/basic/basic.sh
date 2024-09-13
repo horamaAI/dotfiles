@@ -2,9 +2,10 @@
 
 echo "initializing basic profile"
 DIR=$(dirname "$0")
+# echo "dir value:$DIR"
 cd "$DIR"
 
-pwd
+# pwd
 
 # step 0. set up directories structure, and other basic utils
 # fetch basic environment variables, after that basic environment variables should be loaded and ready to be used
@@ -40,7 +41,7 @@ npm_essentials=(
 )
 
 execute_command "apt" "sudo apt install" "${apt_essentials[*]}"
-echo "do nothing for now, npm reinstalls everything, it doesn't check context"
+echo "comment next command and do nothing for now, since npm reinstalls everything, it doesn't check context at all"
 # execute_command "npm" "sudo npm install -g" "${npm_essentials[*]}"
 
 # buff_ifs="$IFS"

@@ -14,9 +14,9 @@ execute_command() {
 }
 
 # read "command_entries" (as defined in schemas/cmds.yaml) from yaml file
-# return list of commands to execute, each with arguments (all items in pkgs concatenated)
-parse_yaml_command_entry() {
-  echo "toto"
+run_yaml_command_entry() {
+  echo "process command file: $1"
+  # execute_command $1
 }
 
 find_files_by_extension() {
@@ -28,7 +28,7 @@ find_files_by_extension() {
 
 # propagate function to subshells
 typeset -fx execute_command
-typeset -fx parse_yaml_command
+typeset -fx run_yaml_command
 typeset -fx make_dir
 typeset -fx find_files_by_extension
 
