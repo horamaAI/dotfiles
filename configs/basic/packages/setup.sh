@@ -2,23 +2,13 @@
 
 COMMENT=\#*
 
-process_yaml_commands() {
-  local yamls_cmds=$1
-  for cmd_file in ${yamls_cmds[@]}; do
-    local command_entries
-    parse_command_entries_from_yaml command_entries $cmd_file
-    #parse_command_entries_from_yaml $cmd_file
-    echo "commands: ${command_entries}"
-    declare -p command_entries
-    # run_yaml_command_entry $cmd_file
-  done
-}
 
-declare -a yamls_cmds
-mapfile -d '' yamls_cmds < <(find_files_by_extension $BASIC_CONFIGS_DIR/packages/ yaml)
-process_yaml_commands $yamls_cmds
-
-echo "found n yaml command files: ${#yamls_cmds[@]}"
+declare -an yamlscmds
+mapfile -d '' yamlscmds < <(find_files_by_extension $BASIC_CONFIGS_DIR/packages/ yaml)
+echo "fetched ${#yamlscmds[@]} yaml files to read commands from"
+#declare -p yamlscmds
+#echo "content: ${yamls_cmds[@]}"
+process_commands_in_yamls yamlscmds
 
 #info "Installing required packages..."
 

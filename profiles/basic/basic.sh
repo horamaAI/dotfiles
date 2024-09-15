@@ -40,7 +40,7 @@ npm_essentials=(
     # add here any other essential tool to load first (not comma separated)
 )
 
-execute_command "apt" "sudo apt install" "${apt_essentials[*]}"
+execute_command "apt" "sudo apt install ${apt_essentials[*]}"
 echo "comment next command and do nothing for now, since npm reinstalls everything, it doesn't check context at all"
 # execute_command "npm" "sudo npm install -g" "${npm_essentials[*]}"
 
