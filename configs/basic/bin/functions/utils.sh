@@ -22,13 +22,16 @@ parse_command_entries_in_yaml() {
   local yamlcommandfile=$2
   local buffer=()
   echo "process file: $2"
-  mapfile commands < <(yq '.command_entries[] | .command' $yamlcommandfile | tr -d '"' | tr '\n' '\0')
-  mapfile buffer < <(yq '.command_entries[] | .command' $yamlcommandfile | tr -d '"')
+  #yq '.command_entries[] | .command' "$yamlcommandfile" | tr -d '"' | tr '\n' '\0'
+  mapfile -d '' commands < <(yq '.command_entries[] | .command' $yamlcommandfile | tr -d '"' | tr '\n' '\0')
+  mapfile -d '' buffer < <(yq '.command_entries[] | .command' $yamlcommandfile | tr -d '"' | tr '\n' '\0')
   local msg
   declare -p buffer
   echo "damit size: ${#commands[@]}"
   echo "damit: ${commands[@]}"
-  echo "${commands[@]}" | while read -d $'' cmd; do
+  #echo "${commands[@]}" | while read -d $'' cmd; do
+  for cmd in $(echo $commands | sed "s/\0/ /g")
+  do
     echo "process cmd: $cmd"
     #mapfile msg < <(yq '.command_entries[] | select(.command == "$cmd") | .pkgs[]' $yamlcommandfile)
     #buffer += <(yq '.command_entries[] | select(.command == "$cmd") | .pkgs[]' $yamlcommandfile)
