@@ -16,26 +16,23 @@ execute_command() {
 }
 
 # read "command_entries" (as defined in schemas/cmds.yaml) from yaml file
-# return list of commands to execute, each with arguments (all items in pkgs concatenated)
+# returns list of commands to execute, each with arguments (all items in pkgs concatenated)
 parse_command_entries_in_yaml() {
   local -n commands=$1
   local yamlcommandfile=$2
-  local buffer=()
+  local -n commandslist=$3
+  #local commandslist=()
   echo "process file: $2"
-  #yq '.command_entries[] | .command' "$yamlcommandfile" | tr -d '"' | tr '\n' '\0'
   mapfile -d '' commands < <(yq '.command_entries[] | .command' $yamlcommandfile | tr -d '"' | tr '\n' '\0')
-  mapfile -d '' buffer < <(yq '.command_entries[] | .command' $yamlcommandfile | tr -d '"' | tr '\n' '\0')
-  local msg
-  declare -p buffer
-  echo "damit size: ${#commands[@]}"
-  echo "damit: ${commands[@]}"
-  #echo "${commands[@]}" | while read -d $'' cmd; do
-  for cmd in $(echo $commands | sed "s/\0/ /g")
+  for cmd in "${commands[@]}"
   do
-    echo "process cmd: $cmd"
-    #mapfile msg < <(yq '.command_entries[] | select(.command == "$cmd") | .pkgs[]' $yamlcommandfile)
-    #buffer += <(yq '.command_entries[] | select(.command == "$cmd") | .pkgs[]' $yamlcommandfile)
-    #echo "msg: ${msg[@]}"
+    echo "fetch packages for cmd: $cmd"
+    # not easy to use yq with environment variables, workaround with a pipe to jq
+    # sed is for trimming trailing space
+    pkgs=$(yq '.' $yamlcommandfile | jq --arg buff "$cmd" '.command_entries[] | select(.command == $buff) | .pkgs[]' | tr -d '"' | tr '\n' ' ' | sed 's/[ \t]*$//')
+  #yq '.command_entries[] | .command' "$yamlcommandfile" | tr -d '"' | tr '\n' '\0'
+    echo "print: $pkgs"
+    commandslist+=("${cmd} ${pkgs}")
     #execute_command $1
   done
 }
@@ -46,9 +43,12 @@ process_commands_in_yamls() {
   echo "yamls_cmds size: ${#yamls_cmds[@]}"
   for cmd_file in ${yamls_cmds[@]}; do
     local command_entries
-    parse_command_entries_in_yaml command_entries $cmd_file
+    local commands_list
+    #mapfile command_entries < <(parse_command_entries_in_yaml command_entries $cmd_file)
+    parse_command_entries_in_yaml command_entries $cmd_file commands_list
     #echo "commands: ${command_entries}"
     declare -p command_entries
+    declare -p commands_list
     #execute_command $1
   done
 }

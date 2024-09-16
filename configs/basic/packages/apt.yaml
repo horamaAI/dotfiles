@@ -18,5 +18,5 @@ command_entries: # by default install-entries should have is-sudo set to true
     description: debian package manager
     command: dpkg -i
     pkgs:
-      - dummy pkg
+      - dummypkg
 ...
