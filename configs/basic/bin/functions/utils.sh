@@ -26,14 +26,15 @@ parse_command_entries_in_yaml() {
   mapfile -d '' commands < <(yq '.command_entries[] | .command' $yamlcommandfile | tr -d '"' | tr '\n' '\0')
   for cmd in "${commands[@]}"
   do
-    echo "fetch packages for cmd: $cmd"
+    echo "fetch packages for command: $cmd"
     # not easy to use yq with environment variables, workaround with a pipe to jq
     # sed is for trimming trailing space
     pkgs=$(yq '.' $yamlcommandfile | jq --arg buff "$cmd" '.command_entries[] | select(.command == $buff) | .pkgs[]' | tr -d '"' | tr '\n' ' ' | sed 's/[ \t]*$//')
-  #yq '.command_entries[] | .command' "$yamlcommandfile" | tr -d '"' | tr '\n' '\0'
-    echo "print: $pkgs"
-    commandslist+=("${cmd} ${pkgs}")
-    #execute_command $1
+    #yq '.command_entries[] | .command' "$yamlcommandfile" | tr -d '"' | tr '\n' '\0'
+    echo "verify string pkgs: $pkgs"
+    if [[ "$pkgs" != "null" ]]; then
+      commandslist+=("sudo ${cmd} ${pkgs}")
+    fi
   done
 }
 
@@ -44,12 +45,10 @@ process_commands_in_yamls() {
   for cmd_file in ${yamls_cmds[@]}; do
     local command_entries
     local commands_list
-    #mapfile command_entries < <(parse_command_entries_in_yaml command_entries $cmd_file)
     parse_command_entries_in_yaml command_entries $cmd_file commands_list
-    #echo "commands: ${command_entries}"
-    declare -p command_entries
-    declare -p commands_list
-    #execute_command $1
+  done
+  for cmd in "${commands_list[@]}"; do
+    execute_command "read from yaml" "$cmd"
   done
 }
 

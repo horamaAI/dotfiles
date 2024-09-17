@@ -24,6 +24,8 @@ command_entry:
       type: string
     description:
       type: string
+    isSudo:
+      type: boolean
     pkgs:
       $ref: '#/pkgs'
   required:

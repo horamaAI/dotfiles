@@ -1,11 +1,12 @@
 ---
 command_entries: # by default install-entries should have is-sudo set to true
-  - name: apt
+  - name: npm
     description: |
       install JS tools/commands via Node Package Manager (npm),
       requires npm to be installed first, which should already be done
       package will be installed globally (-g) 
     command: npm install -g
+    isSudo: false
     pkgs:
       -
 ...
