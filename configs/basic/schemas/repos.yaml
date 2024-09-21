@@ -1,0 +1,25 @@
+%YAML 1.2
+---
+$schema: "http://json-schema.org/draft-04/schema"
+id: "/schemas/repos"
+title: yaml schemas for repos installation/deployment
+description: |
+  A yaml schema to validate installation process for repos.
+  As for commands, original incentive was (is so far) to run shell installation processes that are read from yaml documents.
+type: array
+items:
+  $ref: '#/repo_entry'
+repo_entry:
+  type: object
+  properties:
+    remote_link:
+      type: string
+    remote_name:
+      type: string
+    destination_folder:
+      type: string
+  required:
+    - remote_link:
+    - remote_name:
+    - destination_folder:
+... 

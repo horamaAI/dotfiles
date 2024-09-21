@@ -61,16 +61,16 @@ echo "comment next command and do nothing for now, since npm reinstalls everythi
 
 exit $?
 
-apt_pkgs=$PROFILE_CONFIGS_DIR/apt.list
-opt_pkgs=$PROFILE_CONFIGS_DIR/opt.list
-pkgs=$apt_pkgs:$opt_pkgs
-
-buff_ifs="$IFS"
-IFS=:
-(
-    for pkg in ${pkgs[@]}; do
-      echo "smthing"
-    done
-    )
-IFS="$buff_ifs"
+#apt_pkgs=$PROFILE_CONFIGS_DIR/apt.list
+#opt_pkgs=$PROFILE_CONFIGS_DIR/opt.list
+#pkgs=$apt_pkgs:$opt_pkgs
+#
+#buff_ifs="$IFS"
+#IFS=:
+#(
+#    for pkg in ${pkgs[@]}; do
+#      echo "smthing"
+#    done
+#    )
+#IFS="$buff_ifs"
 
