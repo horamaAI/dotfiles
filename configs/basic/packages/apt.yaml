@@ -14,6 +14,9 @@ command_entries: # by default install-entries should have is-sudo set to true
       - nodejs npm # nodejs: server side JS runtime environment; npm: node package manager
       - ccze  # log files coloriser
       - wget
+      - stow
+      - zsh
+      - zplug
   - name: dpkg
     description: debian package manager
     command: dpkg -i
