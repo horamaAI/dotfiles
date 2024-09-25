@@ -4,16 +4,17 @@ command_entries: # by default install-entries should have is-sudo set to true
     description: install via debian Advanced Package Tool
     command: apt install
     pkgs:
+      - g++
+      - valgrind
       - git
       - tree
       - curl  # likely already installed, but do it anyway
+      - wget
       - screen  # GNU screen, multiplexer
-      - g++
       - python3
       - yq # yaml format validator, also yaml browsing, filtering, selection, etc. (for yaml schema validator, see pajv in npm install)
       - nodejs npm # nodejs: server side JS runtime environment; npm: node package manager
       - ccze  # log files coloriser
-      - wget
       - stow
       - zsh
       - zplug
