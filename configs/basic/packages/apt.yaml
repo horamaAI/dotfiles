@@ -18,7 +18,6 @@ command_entries: # by default install-entries should have is-sudo set to true
       - stow
       - zsh
       - zplug
-      - podman
   - name: dpkg
     description: debian package manager
     command: dpkg -i
