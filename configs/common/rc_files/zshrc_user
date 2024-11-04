@@ -1,0 +1,18 @@
+## libraries and $PATH
+GMP_DIR="/opt/gmp-6.2.1"
+GLPK_DIR="/opt/glpk-5.0"
+IGRAPH_DIR="/opt/igraph-0.9.5"
+export LD_LIBRARY_PATH=${GMP_DIR}:$LD_LIBRARY_PATH
+export CPATH=${GMP_DIR}:$CPATH
+export LD_LIBRARY_PATH=${GLPK_DIR}/lib:$LD_LIBRARY_PATH
+export CPATH=${GLPK_DIR}/include:$CPATH
+export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+export CPATH=/usr/local/include/igraph:$CPATH
+
+## for java projects
+export JAVA_HOME=/usr/lib/jvm/jdk-21-oracle-x64
+export PATH=$JAVA_HOME/bin:$PATH
+
+export PATH=/home/myfirstdebianpc/Documents/repos/opt/Postman:$PATH
+export MEMACS_DIR=$HOME/Documents/repos/org/memacs
+export DOTFILES_DIR=$HOME/Documents/repos/dotfiles
