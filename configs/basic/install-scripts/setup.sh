@@ -2,4 +2,5 @@
 
 COMMENT=\#*
 
+# complete zsh installation
 
