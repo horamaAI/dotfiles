@@ -11,10 +11,10 @@ alias grep='grep --color=auto'
 alias ec="$EDITOR $HOME/.zshrc" # edit .zshrc
 alias sc="source $HOME/.zshrc"  # reload zsh configuration
 
-# Set up the prompt - if you load Theme with zplugin as in this example, this will be overriden by the Theme. If you comment out the Theme in zplugins, this will be loaded.
-autoload -Uz promptinit
-promptinit
-# prompt adam1            # see Zsh Prompt Theme below
+## Set up the prompt - if you load Theme with zplugin as in this example, this will be overriden by the Theme. If you comment out the Theme in zplugins, this will be loaded.
+#autoload -Uz promptinit
+#promptinit
+## prompt adam1            # see Zsh Prompt Theme below
 
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
@@ -33,9 +33,9 @@ HISTSIZE=5000
 SAVEHIST=5000
 HISTFILE=~/.zsh_history
 
-# Use modern completion system
-autoload -Uz compinit
-compinit
+## Use modern completion system
+#autoload -Uz compinit
+#compinit
 
 # zplug - manage plugins
 source /usr/share/zplug/init.zsh
@@ -72,10 +72,10 @@ if ! zplug check --verbose; then
 fi
 zplug load --verbose
 
-#BEGIN - GENERATED CONTENT, DO NOT EDIT !!!
-  [ "$COMMON_ENV_DEBUG" = "1" ] && echo "Sourcing '$0' ..." >&2
-  source "/home/myfirstdebianpc/Documents/repos/common_env/tools/shell/source/shellrc.sh"
-#END - GENERATED CONTENT, DO NOT EDIT !!!
+##BEGIN - GENERATED CONTENT, DO NOT EDIT !!!
+#  [ "$COMMON_ENV_DEBUG" = "1" ] && echo "Sourcing '$0' ..." >&2
+#  source "/home/myfirstdebianpc/Documents/repos/common_env/tools/shell/source/shellrc.sh"
+##END - GENERATED CONTENT, DO NOT EDIT !!!
 
 source ~/.zshrc_user
 source ~/.aliases.zsh

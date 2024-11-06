@@ -17,7 +17,7 @@ command_entries: # by default install-entries should have is-sudo set to true
       - ccze  # log files coloriser
       - stow
       - zsh
-      - zplug
+      - zsh-antigen # dropped zplug for antigen
   - name: dpkg
     description: debian package manager
     command: dpkg -i
