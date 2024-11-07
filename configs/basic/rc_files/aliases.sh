@@ -20,5 +20,3 @@ alias psmy='ps uxf'
 alias ls-no-hidden='ls -la -I'
 alias doclean='sudo apt autoremove && sudo apt autoclean && sudo apt remove && sudo apt clean'
 alias doupdates='sudo apt update && sudo apt upgrade && doclean'
-
-
