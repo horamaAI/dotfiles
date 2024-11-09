@@ -19,6 +19,10 @@ RUN adduser --system --group $CONTAINER_USER \
   && usermod -aG sudo $CONTAINER_USER
 #RUN adduser --system --group $CONTAINER_USER
 RUN chown -R "${CONTAINER_USER}:${CONTAINER_USER}" $HOME
+# use sudo without password since RUN instruction is not interactive and won't
+# be able to prompt to enter password
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
 USER $USER
 # run dummy sudo required command to load password from standard input (sudo -S
 # option for accepting the password from standard input)
