@@ -4,6 +4,12 @@
 # allow auto cd
 setopt auto_cd
 
+# Do not enter command lines into the history list if they are duplicates of the
+# previous event.
+setopt histignorealldups
+setopt sharehistory
+
+
 # Aliases
 alias ls='ls --color=auto'
 alias ll='ls -lah --color=auto'
@@ -15,6 +21,9 @@ alias sc="source $HOME/.zshrc"  # reload zsh configuration
 #autoload -Uz promptinit
 #promptinit
 ## prompt adam1            # see Zsh Prompt Theme below
+## Use modern completion system
+#autoload -Uz compinit
+#compinit
 
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
@@ -25,17 +34,13 @@ bindkey "^[[1;5C" forward-word  # Ctrl-right
 bindkey "^[[1;3D" backward-word # Alt-left
 bindkey "^[[1;3C" forward-word  # Alt-right
 bindkey "^[#" pound-insert  # to comment current command
-
-setopt histignorealldups sharehistory
+# allow using hash symbol as the symbol to comment current command
+bindkey "^[#" pound-insert
 
 # Keep 5000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=5000
 SAVEHIST=5000
 HISTFILE=~/.zsh_history
-
-## Use modern completion system
-#autoload -Uz compinit
-#compinit
 
 # plugins needed 
 #plugins=(git history colored-man-pages docker docker-compose emacs iterm2 node npm brew pip colorize macos pyenv colorize adb aws)
@@ -45,28 +50,20 @@ HISTFILE=~/.zsh_history
 #source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #source ~/.zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
-## Fix for Slow zsh-autosuggestions copy&paste
-autoload -Uz bracketed-paste-magic
-zle -N bracketed-paste bracketed-paste-magic
-zstyle ':bracketed-paste-magic' active-widgets '.self-*'
-
-# zplug - install/load new plugins when zsh is started or reloaded
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
-zplug load --verbose
+### Fix for Slow zsh-autosuggestions copy&paste
+#autoload -Uz bracketed-paste-magic
+#zle -N bracketed-paste bracketed-paste-magic
+#zstyle ':bracketed-paste-magic' active-widgets '.self-*'
 
 ##BEGIN - GENERATED CONTENT, DO NOT EDIT !!!
 #  [ "$COMMON_ENV_DEBUG" = "1" ] && echo "Sourcing '$0' ..." >&2
 #  source "/home/myfirstdebianpc/Documents/repos/common_env/tools/shell/source/shellrc.sh"
 ##END - GENERATED CONTENT, DO NOT EDIT !!!
 
-source ~/.zshrc_user
-source ~/.aliases.zsh
+source ./.zshrc_user
+source ./.aliases.zsh
 
+# Antigen
 source /usr/share/zsh-antigen/antigen.zsh
 # Load Antigen configurations
-antigen init ~/.antigenrc
+antigen init ./.antigenrc
