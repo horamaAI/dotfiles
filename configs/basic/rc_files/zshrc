@@ -37,26 +37,13 @@ HISTFILE=~/.zsh_history
 #autoload -Uz compinit
 #compinit
 
-# zplug - manage plugins
-source /usr/share/zplug/init.zsh
-zplug "plugins/git", from:oh-my-zsh
-zplug "plugins/sudo", from:oh-my-zsh
-zplug "plugins/command-not-found", from:oh-my-zsh
-zplug "zsh-users/zsh-syntax-highlighting"
-zplug "zsh-users/zsh-autosuggestions"
-zplug "zsh-users/zsh-history-substring-search"
-zplug "zsh-users/zsh-completions"
-zplug "junegunn/fzf"
-# zplug "themes/jonathan", from:oh-my-zsh, as:theme # As zsh theme
-zplug "themes/robbyrussell", from:oh-my-zsh, as:theme
-
 # plugins needed 
-plugins=(git history colored-man-pages docker docker-compose emacs iterm2 node npm brew pip colorize macos pyenv colorize adb aws)
+#plugins=(git history colored-man-pages docker docker-compose emacs iterm2 node npm brew pip colorize macos pyenv colorize adb aws)
 
 ## Shell Integration and plugins
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+#source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+#source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#source ~/.zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 ## Fix for Slow zsh-autosuggestions copy&paste
 autoload -Uz bracketed-paste-magic
@@ -79,3 +66,7 @@ zplug load --verbose
 
 source ~/.zshrc_user
 source ~/.aliases.zsh
+
+source /usr/share/zsh-antigen/antigen.zsh
+# Load Antigen configurations
+antigen init ~/.antigenrc
