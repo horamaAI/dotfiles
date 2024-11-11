@@ -21,7 +21,7 @@ else
     echo "Failed to obtain sudo credentials."
 fi
 
-export TARGET_FOLDER=$DOTFILES_DIR/$USER
+export TARGET_PROFILE_FOLDER=$DOTFILES_DIR/$USER
 
 # always setup default profile first
 ./profiles/basic/basic.sh
@@ -32,7 +32,7 @@ export TARGET_FOLDER=$DOTFILES_DIR/$USER
 # export PROFILE_NAME=dmahoro
 
 # final step. stow generated folder: create symlinks from home folder to stow target
-cd "$TARGET_FOLDER"
+cd "$TARGET_PROFILE_FOLDER"
 
 # uncomment following to allow generating symlinks to home
 # stow .
