@@ -9,7 +9,6 @@ setopt auto_cd
 setopt histignorealldups
 setopt sharehistory
 
-
 # Aliases
 alias ls='ls --color=auto'
 alias ll='ls -lah --color=auto'
@@ -25,8 +24,10 @@ alias sc="source $HOME/.zshrc"  # reload zsh configuration
 #autoload -Uz compinit
 #compinit
 
-# Use emacs keybindings even if our EDITOR is set to vi
-bindkey -e
+## Use emacs keybindings even if our EDITOR is set to vi
+#bindkey -e
+# moving gradually to vi keybinding
+bindkey -v
 bindkey "^[[5~" history-beginning-search-backward
 bindkey "^[[6~" history-beginning-search-forward
 bindkey "^[[1;5D" backward-word # Ctrl-left
