@@ -2,6 +2,9 @@
 
 COMMENT=\#*
 
+DIR=$(dirname "$0")
+cd "$DIR"
+
 build_rc() {
   find . -iname "*rc*" -printf "%f\0"
   mapfile -d $'' rc_files < <(find . -iname "*rc*" -printf "%f\0")

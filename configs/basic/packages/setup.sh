@@ -2,7 +2,6 @@
 
 COMMENT=\#*
 
-
 declare -an yamlscmds
 mapfile -d '' yamlscmds < <(find_files_by_extension $BASIC_CONFIGS_DIR/packages/ yaml)
 echo "fetched ${#yamlscmds[@]} yaml files to read commands from"
