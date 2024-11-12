@@ -59,6 +59,9 @@ echo "comment next command and do nothing for now, since npm reinstalls everythi
 # source $BASIC_CONFIGS_DIR/packages/setup.sh
 . $BASIC_CONFIGS_DIR/packages/setup.sh
 
+# step 3. configure rc files
+bash $BASIC_CONFIGS_DIR/rc_files/setup.sh
+
 exit $?
 
 #apt_pkgs=$PROFILE_CONFIGS_DIR/apt.list
