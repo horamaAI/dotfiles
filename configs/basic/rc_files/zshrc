@@ -26,15 +26,18 @@ alias sc="source $HOME/.zshrc"  # reload zsh configuration
 
 ## Use emacs keybindings even if our EDITOR is set to vi
 #bindkey -e
-# moving gradually to vi keybinding
-bindkey -v
-bindkey "^[[5~" history-beginning-search-backward
-bindkey "^[[6~" history-beginning-search-forward
-bindkey "^[[1;5D" backward-word # Ctrl-left
-bindkey "^[[1;5C" forward-word  # Ctrl-right
-bindkey "^[[1;3D" backward-word # Alt-left
-bindkey "^[[1;3C" forward-word  # Alt-right
-bindkey "^[#" pound-insert  # to comment current command
+# moving gradually to vi keybinding, but so far trying jeffreytse/zsh-vi-mode
+#bindkey -v
+
+# search history from substring if available
+# for now, checking out jeffreytse/zsh-vi-mode
+#bindkey "^[[5~" history-beginning-search-backward
+#bindkey "^[[6~" history-beginning-search-forward
+# trying zsh-vi-mode, so deactivate for now
+#bindkey "^[[1;5D" backward-word # Ctrl-left
+#bindkey "^[[1;5C" forward-word  # Ctrl-right
+#bindkey "^[[1;3D" backward-word # Alt-left
+#bindkey "^[[1;3C" forward-word  # Alt-right
 # allow using hash symbol as the symbol to comment current command
 bindkey "^[#" pound-insert
 

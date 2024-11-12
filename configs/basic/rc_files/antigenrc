@@ -12,11 +12,17 @@ antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-history-substring-search
-# antigen bundle junegunn/fzf
+
+# command line fuzzy finder: https://github.com/junegunn/fzf
+#antigen bundle junegunn/fzf
+
+# vi-mode for zsh: https://github.com/jeffreytse/zsh-vi-mode
+antigen bundle jeffreytse/zsh-vi-mode
 
 # Select theme
-# antigen theme denysdovhan/spaceship-prompt
-antigen theme robbyrussell
+#antigen theme denysdovhan/spaceship-prompt
+#antigen theme robbyrussell
+antigen theme spaceship-prompt/spaceship-prompt
 
 # Tell Antigen that you're done
 antigen apply
