@@ -7,9 +7,9 @@ alias treenohidden='find . ! -name "'"*~"'" -print | sed -e '"'"'s;[^/]*/;|____;
 alias ..='cd ../'
 alias .2='cd ../../'
 alias .3='cd ../../../'
-alias memacs='cd $MEMACS_DIR'
-alias dotfiles='cd $DOTFILES_DIR'
-alias merepos='~/Documents/repos'
+alias memacs='cd ~/Documents/repos/org/memacs'
+alias dotfiles='cd ~/Documents/repos/dotfiles'
+alias merepos='cd ~/repos'
 
 # git
 alias gsynch="bash ~/bin/git-sync.sh"

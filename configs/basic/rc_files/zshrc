@@ -65,7 +65,7 @@ HISTFILE=~/.zsh_history
 ##END - GENERATED CONTENT, DO NOT EDIT !!!
 
 source ./.zshrc_user
-source ./.aliases.zsh
+source ./.aliasrc
 
 # Antigen
 source /usr/share/zsh-antigen/antigen.zsh

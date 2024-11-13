@@ -9,7 +9,7 @@ build_rc() {
   find . -iname "*rc*" -printf "%f\0"
   mapfile -d $'' rc_files < <(find . -iname "*rc*" -printf "%f\0")
   for rc in "${rc_files[@]}"; do
-    echo "test: $rc vs $TARGET_PROFILE_FOLDER/.$rc"
+    echo "copying rc file $rc to $TARGET_PROFILE_FOLDER/.$rc"
     cp $rc "$TARGET_PROFILE_FOLDER/.$rc"
   done
 }
