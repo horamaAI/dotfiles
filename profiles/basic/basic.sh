@@ -9,7 +9,7 @@ cd "$DIR"
 
 # step 0. set up directories structure, and other basic utils
 # fetch basic environment variables, after that basic environment variables should be loaded and ready to be used
-source $DOTFILES_DIR/configs/basic/env/basic.env
+source $DOTFILES_ENV_DIR/configs/basic/env/basic.env
 # load utils
 #source $BASIC_CONFIGS_DIR/bin/functions/misc.sh
 for funcs in $BASIC_CONFIGS_DIR/bin/functions/*; do
@@ -54,8 +54,8 @@ echo "comment next command and do nothing for now, since npm reinstalls everythi
 #     )
 # IFS="$buff_ifs"
 
-# step 2. install other required tools
-# ? and setup basic env, tools, aliases, etc.
+# step 2. install other required tools and setup:
+# basic env, tools, aliases, etc.
 . $BASIC_CONFIGS_DIR/packages/setup.sh
 
 # step 3. configure rc files

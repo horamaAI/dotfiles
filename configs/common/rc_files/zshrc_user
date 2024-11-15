@@ -15,4 +15,4 @@ export PATH=$JAVA_HOME/bin:$PATH
 
 export PATH=/home/myfirstdebianpc/Documents/repos/opt/Postman:$PATH
 export MEMACS_DIR=$HOME/Documents/repos/org/memacs
-export DOTFILES_DIR=$HOME/Documents/repos/dotfiles
+export DOTFILES=$HOME/dotfiles_user

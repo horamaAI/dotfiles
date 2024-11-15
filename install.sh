@@ -5,7 +5,7 @@ echo "init dotfiles"
 DIR=$(dirname "$0")
 cd "$DIR"
 
-export DOTFILES_DIR=$(realpath $DIR)
+export DOTFILES_ENV_DIR=$(realpath $DIR)
 
 echo "Prompting for sudo password..."
 if sudo -v; then
@@ -21,7 +21,10 @@ else
     echo "Failed to obtain sudo credentials."
 fi
 
-export TARGET_PROFILE_FOLDER=$DOTFILES_DIR/$USER
+export TRGT_DOTFILES_DIR_NAME=dotfiles_$USER
+export DOTFILES_TRGT_DIR=$DOTFILES_ENV_DIR/$TRGT_DOTFILES_DIR_NAME
+# where the final built folder should go
+export FINAL_DOTFILES_DIR=$HOME/$TRGT_DOTFILES_DIR_NAME
 
 # always setup default profile first
 ./profiles/basic/basic.sh
@@ -32,7 +35,10 @@ export TARGET_PROFILE_FOLDER=$DOTFILES_DIR/$USER
 # export PROFILE_NAME=dmahoro
 
 # final step. stow generated folder: create symlinks from home folder to stow target
-cd "$TARGET_PROFILE_FOLDER"
+# constraint: dir to stow has to be a direct child of home: ~/dir_to_stow
+#cd "$DOTFILES_TRGT_DIR"
+mv $DOTFILES_TRGT_DIR $FINAL_DOTFILES_DIR
+cd "$FINAL_DOTFILES_DIR"
 
 # uncomment following to allow generating symlinks to home
-# stow .
+stow .
