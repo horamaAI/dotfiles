@@ -21,6 +21,8 @@ else
     echo "Failed to obtain sudo credentials."
 fi
 
+sudo apt update && sudo apt upgrade
+
 export TRGT_DOTFILES_DIR_NAME=dotfiles_$USER
 export DOTFILES_TRGT_DIR=$DOTFILES_ENV_DIR/$TRGT_DOTFILES_DIR_NAME
 # where the final built folder should go
