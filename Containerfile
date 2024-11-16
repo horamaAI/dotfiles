@@ -12,7 +12,8 @@ WORKDIR $HOME
 RUN apt update
 #RUN apt install dialog
 RUN apt update && apt install -y vim git
-RUN mkdir -p $HOME/repos && cd $HOME/repos && git clone https://github.com/horamaAI/dotfiles.git
+RUN mkdir -p $HOME && cd $HOME && git clone \
+  https://github.com/horamaAI/dotfiles.git dotfiles_init
 RUN apt -y install sudo
 RUN adduser --system --group $CONTAINER_USER \
   && echo "${CONTAINER_USER}:${CONTAINER_USER}" | chpasswd \
@@ -26,9 +27,9 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER $USER
 # run dummy sudo required command to load password from standard input (sudo -S
 # option for accepting the password from standard input)
-RUN cd $HOME/repos/dotfiles && echo "${CONTAINER_USER}" | sudo -S apt update \
+RUN cd $HOME/dotfiles_init && echo "${CONTAINER_USER}" | sudo -S apt update \
   && yes Y | bash install.sh
-#RUN cd $HOME/repos/dotfiles && echo "${CONTAINER_USER}" | sudo -S apt update \
+#RUN cd $HOME/dotfiles_init && echo "${CONTAINER_USER}" | sudo -S apt update \
 #  && yes Y | ./install.sh
 
 #RUN chown -R tester:tester /home/tester && \
