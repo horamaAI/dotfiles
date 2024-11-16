@@ -22,7 +22,7 @@ antigen bundle jeffreytse/zsh-vi-mode
 # Select theme
 #antigen theme denysdovhan/spaceship-prompt
 #antigen theme robbyrussell
-# seems that theme and reloads doesn't go very well together
+# seems that theme and reloads don't go very well together
 # (https://github.com/zsh-users/antigen/issues/675)
 # so instead, check if theme not already loaded before reapply
 #antigen theme spaceship-prompt/spaceship-prompt
