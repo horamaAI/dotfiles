@@ -28,7 +28,7 @@ antigen bundle jeffreytse/zsh-vi-mode
 #antigen theme spaceship-prompt/spaceship-prompt
 THEME=spaceship-prompt/spaceship-prompt
 [[ `antigen list | grep $THEME | wc -l` -gt 0 ]] || antigen theme $THEME
-source ./.antigen/bundles/spaceship-prompt/spaceship-prompt/spaceship.zsh
+source $HOME/.antigen/bundles/spaceship-prompt/spaceship-prompt/spaceship.zsh
 
 # Tell Antigen that you're done
 antigen apply
