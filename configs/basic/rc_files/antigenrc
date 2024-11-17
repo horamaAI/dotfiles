@@ -27,8 +27,11 @@ antigen bundle jeffreytse/zsh-vi-mode
 # so instead, check if theme not already loaded before reapply
 #antigen theme spaceship-prompt/spaceship-prompt
 THEME=spaceship-prompt/spaceship-prompt
-[[ `antigen list | grep $THEME | wc -l` -gt 0 ]] || antigen theme $THEME
-source $HOME/.antigen/bundles/spaceship-prompt/spaceship-prompt/spaceship.zsh
+if [[ `antigen list | grep $THEME | wc -l` -gt 0 ]]; then
+  source $HOME/.antigen/bundles/spaceship-prompt/spaceship-prompt/spaceship.zsh
+else
+  antigen theme $THEME
+fi
 
 # Tell Antigen that you're done
 # Best to keep this line at the end, there could be more
