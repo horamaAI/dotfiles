@@ -69,8 +69,5 @@ source /usr/share/zsh-antigen/antigen.zsh
 # Load Antigen configurations
 antigen init $HOME/.antigenrc
 
-# plugins needed 
-plugins=(git history colored-man-pages docker docker-compose emacs iterm2 node npm brew pip colorize macos pyenv colorize adb aws)
-
 source $HOME/.zshrc_user
 source $HOME/.aliasrc

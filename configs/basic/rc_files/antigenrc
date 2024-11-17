@@ -1,6 +1,17 @@
 # Load oh-my-zsh library
 antigen use oh-my-zsh
 
+# Select theme
+#antigen theme denysdovhan/spaceship-prompt
+#antigen theme robbyrussell
+# seems that theme and reloads don't go very well together
+# (https://github.com/zsh-users/antigen/issues/675)
+# so instead, check if theme not already loaded before reapply
+#antigen theme spaceship-prompt/spaceship-prompt
+THEME=spaceship-prompt/spaceship-prompt
+[[ `antigen list | grep $THEME | wc -l` -gt 0 ]] || antigen theme $THEME
+source $HOME/.antigen/bundles/spaceship-prompt/spaceship-prompt/spaceship.zsh
+
 # Load bundles from the default repo (oh-my-zsh)
 antigen bundle git
 antigen bundle command-not-found
@@ -18,17 +29,6 @@ antigen bundle zsh-users/zsh-history-substring-search
 
 # vi-mode for zsh: https://github.com/jeffreytse/zsh-vi-mode
 antigen bundle jeffreytse/zsh-vi-mode
-
-# Select theme
-#antigen theme denysdovhan/spaceship-prompt
-#antigen theme robbyrussell
-# seems that theme and reloads don't go very well together
-# (https://github.com/zsh-users/antigen/issues/675)
-# so instead, check if theme not already loaded before reapply
-#antigen theme spaceship-prompt/spaceship-prompt
-THEME=spaceship-prompt/spaceship-prompt
-[[ `antigen list | grep $THEME | wc -l` -gt 0 ]] || antigen theme $THEME
-source $HOME/.antigen/bundles/spaceship-prompt/spaceship-prompt/spaceship.zsh
 
 # Tell Antigen that you're done
 # Best to keep this line at the end, there could be more
