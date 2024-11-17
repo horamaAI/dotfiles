@@ -31,4 +31,6 @@ THEME=spaceship-prompt/spaceship-prompt
 source $HOME/.antigen/bundles/spaceship-prompt/spaceship-prompt/spaceship.zsh
 
 # Tell Antigen that you're done
+# Best to keep this line at the end, there could be more
+# tweaking of antigen configs
 antigen apply

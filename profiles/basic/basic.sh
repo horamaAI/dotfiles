@@ -26,7 +26,7 @@ IFS=:
     )
 IFS="$buff_ifs"
 
-# step 1. always install first build-essential, and following tools
+# 1. always install first build-essential, and following tools
 apt_essentials=(
     build-essential # g++, make, etc.
     yq # to parse yaml files containing required installations, will install python3
@@ -54,15 +54,18 @@ echo "comment next command and do nothing for now, since npm reinstalls everythi
 #     )
 # IFS="$buff_ifs"
 
-# step 2. install other required tools and setup:
+# 2. install other required tools and setup:
 # basic env, tools, aliases, etc.
 . $BASIC_CONFIGS_DIR/packages/setup.sh
 
-# step 3. configure rc files
+# 3. configure rc files
 bash $BASIC_CONFIGS_DIR/rc_files/setup.sh
 
-# step 4. complete some rc files configs
+# 4. complete some rc files configs
 bash $BASIC_CONFIGS_DIR/env/setup.sh
+
+# 5. for vim
+cp $BASIC_CONFIGS_DIR/vim/vimrc "$DOTFILES_TRGT_DIR/.vimrc"
 
 exit $?
 
