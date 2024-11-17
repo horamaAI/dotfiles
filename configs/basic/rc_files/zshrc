@@ -1,3 +1,6 @@
+# Antigen
+source /usr/share/zsh-antigen/antigen.zsh
+
 # Set path if required
 #export PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
 
@@ -64,8 +67,6 @@ HISTFILE=~/.zsh_history
 #  source "/home/myfirstdebianpc/Documents/repos/common_env/tools/shell/source/shellrc.sh"
 ##END - GENERATED CONTENT, DO NOT EDIT !!!
 
-# Antigen
-source /usr/share/zsh-antigen/antigen.zsh
 # Load Antigen configurations
 antigen init $HOME/.antigenrc
 
