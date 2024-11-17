@@ -7,7 +7,7 @@ cd "$DIR"
 
 # pwd
 
-# step 0. set up directories structure, and other basic utils
+# 0. set up directories structure, and other basic utils
 # fetch basic environment variables, after that basic environment variables should be loaded and ready to be used
 source $DOTFILES_ENV_DIR/configs/basic/env/basic.env
 # load utils
