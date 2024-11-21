@@ -5,6 +5,7 @@ command_entries: # by default install-entries should have is-sudo set to true
     command: apt install
     pkgs:
       - g++
+      - clang
       - valgrind
       - git
       - tree
