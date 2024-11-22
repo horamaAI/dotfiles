@@ -1,0 +1,6 @@
+# utils
+alias emacs='emacsclient -t'
+alias memacs='cd ~/repos/org/memacs'
+alias dotfiles='cd ~/repos/dotfiles'
+alias merepos='cd ~/repos'
+
