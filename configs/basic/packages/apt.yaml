@@ -4,6 +4,7 @@ command_entries: # by default install-entries should have is-sudo set to true
     description: install via debian Advanced Package Tool
     command: apt install
     pkgs:
+      - bats # for unit testing
       - g++
       - clang
       - valgrind
