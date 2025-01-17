@@ -41,6 +41,8 @@ parse_command_entries_in_yaml() {
 process_commands_in_yamls() {
   local -n yamls_cmds=$1
   #declare -p yamls_cmds
+  # associative 2D array: "cmd"-[list_of_application_with_cmd]
+  declare -A INSTALLED_APPS
   echo "yamls_cmds size: ${#yamls_cmds[@]}"
   for cmd_file in ${yamls_cmds[@]}; do
     local command_entries
