@@ -23,6 +23,8 @@ parse_command_entries_in_yaml() {
   local -n commandslist=$3
   #local commandslist=()
   echo "process file: $2"
+  # validate that model satisfy schema
+  pajv -s $BASIC_CONFIGS_DIR/schemas/cmds.yaml -d $yamlcommandfile
   mapfile -d '' commands < <(yq '.command_entries[] | .command' $yamlcommandfile | tr -d '"' | tr '\n' '\0')
   for cmd in "${commands[@]}"
   do
@@ -41,8 +43,7 @@ parse_command_entries_in_yaml() {
 process_commands_in_yamls() {
   local -n yamls_cmds=$1
   #declare -p yamls_cmds
-  # associative 2D array: "cmd"-[list_of_application_with_cmd]
-  declare -A INSTALLED_APPS
+  declare -A INSTALLED_APPS # associative 2D array: "cmd"-[list_of_application_with_cmd]
   echo "yamls_cmds size: ${#yamls_cmds[@]}"
   for cmd_file in ${yamls_cmds[@]}; do
     local command_entries

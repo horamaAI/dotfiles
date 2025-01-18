@@ -4,7 +4,7 @@ command_entries: # by default install-entries should have is-sudo set to true
     description: install via debian Advanced Package Tool
     command: apt install
     pkgs:
-      - bats # for unit testing
+      - bats # for unit testing dotfiles installation
       - g++
       - clang
       - valgrind
@@ -14,12 +14,12 @@ command_entries: # by default install-entries should have is-sudo set to true
       - wget
       - screen  # GNU screen, multiplexer
       - python3
-      - yq # yaml format validator, also yaml browsing, filtering, selection, etc. (for yaml schema validator, see pajv in npm install)
+      - yq # yaml format validator, also yaml browsing, filtering, selection, etc. (for yaml validation against schema, see node tool 'pajv' in npm install)
       - nodejs npm # nodejs: server side JS runtime environment; npm: node package manager
       - ccze  # log files coloriser
-      - stow
+      - stow  # needed to symlink generated dotfile folder
       - zsh
-      - zsh-antigen # dropped zplug for antigen
+      - zsh-antigen # zsh plugins manager (dropped zplug)
   - name: dpkg
     description: debian package manager
     command: dpkg -i
