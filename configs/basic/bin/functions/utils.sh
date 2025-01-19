@@ -15,6 +15,12 @@ execute_command() {
   fi
 }
 
+# validate that model satisfy schema
+# $1 is the schema, and $2 the data
+validate_model_against_schema() {
+  [[ $(pajv -s $1 -d $2 | grep ' valid') ]] && echo "schema validates the data model" || echo "[WARN] schema does NOT validate the data model, please double check the data model"
+}
+
 # read "command_entries" (as defined in schemas/cmds.yaml) from yaml file
 # returns list of commands to execute, each with arguments (all items in pkgs concatenated)
 parse_command_entries_in_yaml() {
@@ -23,8 +29,8 @@ parse_command_entries_in_yaml() {
   local -n commandslist=$3
   #local commandslist=()
   echo "process file: $2"
-  # validate that model satisfy schema
-  pajv -s $BASIC_CONFIGS_DIR/schemas/cmds.yaml -d $yamlcommandfile
+  # pajv -s $BASIC_CONFIGS_DIR/schemas/cmds.yaml -d $yamlcommandfile
+  validate_model_against_schema $BASIC_CONFIGS_DIR/schemas/cmds.yaml $yamlcommandfile
   mapfile -d '' commands < <(yq '.command_entries[] | .command' $yamlcommandfile | tr -d '"' | tr '\n' '\0')
   for cmd in "${commands[@]}"
   do
