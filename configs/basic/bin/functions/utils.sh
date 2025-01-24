@@ -30,6 +30,7 @@ parse_command_entries_in_yaml() {
   #local commandslist=()
   echo "process file: $2"
   # pajv -s $BASIC_CONFIGS_DIR/schemas/cmds.yaml -d $yamlcommandfile
+  echo "attempt to validate data model: $2"
   validate_model_against_schema $BASIC_CONFIGS_DIR/schemas/cmds.yaml $yamlcommandfile
   mapfile -d '' commands < <(yq '.command_entries[] | .command' $yamlcommandfile | tr -d '"' | tr '\n' '\0')
   for cmd in "${commands[@]}"
