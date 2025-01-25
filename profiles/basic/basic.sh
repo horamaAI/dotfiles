@@ -56,6 +56,8 @@ echo "comment next command and do nothing for now, since npm reinstalls everythi
 
 # 2. install other required tools and setup:
 # basic env, tools, aliases, etc.
+# keep installed tools/apps, will test if everything went well afterward
+declare -A INSTALLED_APPS # associative 2D array: "cmd"-[list_of_application_with_cmd]
 . $BASIC_CONFIGS_DIR/packages/setup.sh
 
 # 3. configure rc files
