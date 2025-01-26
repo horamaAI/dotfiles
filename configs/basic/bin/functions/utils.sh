@@ -6,7 +6,7 @@ make_dir() {
   mkdir -vp $target_path
 }
 
-execute_command() {
+execute_install_command() {
   local msg=$1
   local command_to_run="$2"
   echo "[$msg] attempting to run command: '$command_to_run'"
@@ -57,7 +57,7 @@ process_commands_in_yamls() {
     parse_command_entries_in_yaml command_entries $cmd_file commands_list
   done
   for cmd in "${commands_list[@]}"; do
-    execute_command "read from yaml" "$cmd"
+    execute_install_command "read from yaml" "$cmd"
   done
 }
 
@@ -69,7 +69,7 @@ find_files_by_extension() {
 }
 
 # propagate function to subshells
-typeset -fx execute_command
+typeset -fx execute_install_command
 typeset -fx make_dir
 typeset -fx find_files_by_extension
 typeset -fx process_commands_in_yamls

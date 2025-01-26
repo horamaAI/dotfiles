@@ -26,6 +26,9 @@ IFS=:
     )
 IFS="$buff_ifs"
 
+# store installed tools/apps, further tests will be done to validate everything went well
+declare -A INSTALLED_APPS # associative 2D array: "cmd"-[list_of_application_with_cmd]
+
 # 1. always install first build-essential, and following tools
 apt_essentials=(
     build-essential # g++, make, etc.
@@ -40,24 +43,22 @@ npm_essentials=(
     # add here any other essential tool to load first (not comma separated)
 )
 
-execute_command "apt" "sudo apt install ${apt_essentials[*]}"
+execute_install_command "apt" "sudo apt install ${apt_essentials[*]}"
 echo "comment next command and do nothing for now, since npm reinstalls everything, it doesn't check context at all"
-#execute_command "npm" "sudo npm install -g" "${npm_essentials[*]}"
+#execute_install_command "npm" "sudo npm install -g" "${npm_essentials[*]}"
 
 # buff_ifs="$IFS"
 # IFS=:
 # (
 #     docommand="sudo apt install"
 #     for pkg in ${apt_essentials[@]}; do
-#       execute_command "apt install" $docommand $pkg
+#       execute_install_command "apt install" $docommand $pkg
 #     done
 #     )
 # IFS="$buff_ifs"
 
 # 2. install other required tools and setup:
 # basic env, tools, aliases, etc.
-# store installed tools/apps, further tests will be done to validate everything went well
-declare -A INSTALLED_APPS # associative 2D array: "cmd"-[list_of_application_with_cmd]
 . $BASIC_CONFIGS_DIR/packages/setup.sh
 
 # 3. configure rc files
