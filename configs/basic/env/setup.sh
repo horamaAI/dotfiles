@@ -2,7 +2,7 @@
 
 COMMENT=\#*
 
-# complete with environment variables from the specific installation
+# complete with further environment variables, for example some specific installation
 echo "
 # use for example sequence 'jk' as <ESC> for zsh-vi-mode
 # can get annoying otherwise when need to use some shell keybindings
