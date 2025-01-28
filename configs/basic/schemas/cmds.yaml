@@ -28,6 +28,8 @@ command_entry:
       type: boolean
     pkgs:
       $ref: '#/pkgs'
+    command_for_test:
+      type: string
   required:
     - name
     - command
