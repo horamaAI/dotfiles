@@ -29,6 +29,7 @@ command_entry:
     pkgs:
       $ref: '#/pkgs'
     command_for_test:
+      description: when run with test, returns boolean
       type: string
   required:
     - name
