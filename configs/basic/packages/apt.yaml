@@ -3,7 +3,7 @@ command_entries: # by default install-entries should have is-sudo set to true
   - name: apt
     description: install via debian Advanced Package Tool
     command: apt install
-    command_for_test: apt list --installed
+    command_for_test: 'apt list --installed | grep -q'
     pkgs:
       - bats # for unit testing dotfiles installation
       - g++
