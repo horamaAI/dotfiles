@@ -28,6 +28,7 @@ IFS="$buff_ifs"
 
 # store installed tools/apps, further tests will be done to validate everything went well
 declare -A INSTALLED_APPS # associative 2D array: "cmd"-[list_of_application_with_cmd]
+export INSTALLED_APPS
 
 # 1. always install first build-essential, and following tools
 apt_essentials=(
