@@ -45,7 +45,7 @@ npm_essentials=(
 )
 
 execute_install_command "apt" "sudo apt install ${apt_essentials[*]}"
-echo "comment next command and do nothing for now, since npm reinstalls everything, it doesn't check context at all"
+echo "next command (npm) is suspended for now, does nothing, since npm doesn't check context at all, it just reinstall everything"
 #execute_install_command "npm" "sudo npm install -g" "${npm_essentials[*]}"
 
 # buff_ifs="$IFS"
