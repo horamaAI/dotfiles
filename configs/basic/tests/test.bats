@@ -6,5 +6,7 @@ COMMENT=\#*
 test_apt_installed() {
   # INSTALLED_APPS
   # for each pkg in associative array 'INSTALLED_APPS', do if 'command_for_test pkg', then returns/print OK/check; otherwise KO/cross
+  for key_value in "${INSTALLED_APPS[@]}"; do
+  done
 }
 
