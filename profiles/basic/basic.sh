@@ -27,7 +27,7 @@ IFS=:
 IFS="$buff_ifs"
 
 # store installed tools/apps, further tests will be done to validate everything went well
-declare -A INSTALLED_APPS # associative 2D array: "cmd"-[list_of_application_with_cmd]
+declare -A INSTALLED_APPS # associative 2D array: "cmd" -> [list_of_packages_to_install_using_the_cmd], 2 solutions: 1. 1D array of space separated packages names, 2. 2D array of array of packages
 export INSTALLED_APPS
 
 # 1. always install first build-essential, and following tools
