@@ -26,10 +26,10 @@ IFS=:
     )
 IFS="$buff_ifs"
 
-# store installed tools/apps, further tests will be done to validate everything went well
-# 'INSTALLED_APPS' global associative array of type: ~"cmd" -> [list_of_packages_to_install_using_the_cmd]~
-# 2 solutions:
-# 1. [preferred] 1D array of space separated packages names (["cmd"  -> "pkg1 pkg2 ..."]),
+# variable 'INSTALLED_APPS' needed to store installed tools/apps/packages/etc. since will utilized later to validate that packages were properly installed (or not)
+# 'INSTALLED_APPS' is a global associative array of type: ~"cmd" -> [list_of_packages_to_install_using_the_cmd]~
+# 2 solutions design for the associative array:
+# 1. [preferred] 1D associative array of space separated packages names, i.e. ["cmd"  -> "pkg1 pkg2 ..."],
 # 2. 2D associative array of array of packages (["cmd" -> [pkg1, pkg2, ...]])
 declare -A INSTALLED_APPS 
 export INSTALLED_APPS
