@@ -28,6 +28,7 @@ IFS="$buff_ifs"
 
 # variable 'INSTALLED_APPS' needed to store installed tools/apps/packages/etc. since will utilized later to validate that packages were properly installed (or not)
 # 'INSTALLED_APPS' is a global associative array of type: ~"cmd" -> [list_of_packages_to_install_using_the_cmd]~
+# ~cmd~ is the command to test if *installation went properly*, not the command that was used to install
 # 2 solutions design for the associative array:
 # 1. [preferred] 1D associative array of space separated packages names, i.e. ["cmd"  -> "pkg1 pkg2 ..."],
 # 2. 2D associative array of array of packages (["cmd" -> [pkg1, pkg2, ...]])
