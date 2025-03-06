@@ -10,6 +10,7 @@ execute_install_command() {
   local msg=$1
   local command_to_run="$2"
   echo "[$msg] attempting to run command: '$command_to_run'"
+  declare -A installed_pkgs # key: command run to install packages ($msg), value: space separated packages
   if [[ -n "$command_to_run" ]]; then
     eval "$command_to_run"
   fi
