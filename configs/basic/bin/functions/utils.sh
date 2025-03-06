@@ -13,6 +13,8 @@ execute_install_command() {
   declare -A installed_pkgs # key: command run to install packages ($msg), value: space separated packages
   if [[ -n "$command_to_run" ]]; then
     eval "$command_to_run"
+    # ~(@kv)~: parameter expansion zsh style
+    installed_pkgs[$msg]=$(echo "$command_to_run" | sed -n "s/^.*${msg} //p")
   fi
 }
 
