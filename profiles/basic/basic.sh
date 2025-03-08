@@ -32,7 +32,7 @@ IFS="$buff_ifs"
 # 2 solutions design for the associative array:
 # 1. [preferred] 1D associative array of space separated packages names, i.e. ["cmd"  -> "pkg1 pkg2 ..."],
 # 2. 2D associative array of array of packages (["cmd" -> [pkg1, pkg2, ...]])
-declare -A INSTALLED_APPS 
+declare -A INSTALLED_APPS
 export INSTALLED_APPS
 
 # 1. always install first build-essential, and following tools
@@ -49,7 +49,7 @@ npm_essentials=(
     # add here any other essential tool to load first (not comma separated)
 )
 
-execute_install_command "apt" "sudo apt install ${apt_essentials[*]}"
+INSTALLED_APPS+=$(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}")
 echo "next command (npm) is suspended for now, does nothing, since npm doesn't check context at all, it just reinstall everything"
 #execute_install_command "npm" "sudo npm install -g" "${npm_essentials[*]}"
 
