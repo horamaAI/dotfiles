@@ -12,7 +12,7 @@ execute_install_command() {
   echo "[$msg] attempting to run command: '$command_to_run'"
   declare -A installed_pkgs # key: command run to install packages ($msg), value: space separated packages
   if [[ -n "$command_to_run" ]]; then
-    eval "$command_to_run"
+    #eval "$command_to_run"
     # ~(@kv)~: parameter expansion zsh style
     installed_pkgs[$msg]=$(echo "$command_to_run" | sed -n "s/^.*${msg} //p")
     # return string form of associative array to be used by calling function
@@ -61,9 +61,11 @@ process_commands_in_yamls() {
     local commands_list
     parse_command_entries_in_yaml command_entries $cmd_file commands_list
   done
+  declare -A buffer_associative_array
   for cmd in "${commands_list[@]}"; do
-    execute_install_command "read from yaml" "$cmd"
+    buffer_associative_array+=$(execute_install_command "read from yaml" "$cmd")
   done
+  echo "${buffer_associative_array[@]@K}"
 }
 
 find_files_by_extension() {
