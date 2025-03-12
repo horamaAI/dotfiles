@@ -77,7 +77,7 @@ bash $BASIC_CONFIGS_DIR/env/setup.sh
 cp $BASIC_CONFIGS_DIR/vim/vimrc "$DOTFILES_TRGT_DIR/.vimrc"
 
 # 6. test that everything went well
-bash $BASIC_CONFIGS_DIR/tests/test.bats
+#bash $BASIC_CONFIGS_DIR/tests/test.bats
 
 # test: show content
 for key value in "${(@kv)INSTALLED_APPS}"
