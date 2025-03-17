@@ -49,6 +49,7 @@ npm_essentials=(
     # add here any other essential tool to load first (not comma separated)
 )
 
+execute_install_command "apt" "sudo apt install ${apt_essentials[*]}"
 declare -A toto=$(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}")
 #declare -A toto="($(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}"))"
 echo "going to test in toto:${!toto[@]}"
