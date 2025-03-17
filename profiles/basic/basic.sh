@@ -49,6 +49,13 @@ npm_essentials=(
     # add here any other essential tool to load first (not comma separated)
 )
 
+declare -A toto="($(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}"))"
+for apair in "${!toto[@]}"
+do
+  echo "in toto:[content](key: value): ($key: $value)"
+done
+
+
 INSTALLED_APPS+=$(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}")
 echo "next command (npm) is suspended for now, does nothing, since npm doesn't check context at all, it just reinstall everything"
 #execute_install_command "npm" "sudo npm install -g" "${npm_essentials[*]}"
