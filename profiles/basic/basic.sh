@@ -53,9 +53,9 @@ execute_install_command "apt" "sudo apt install ${apt_essentials[*]}"
 declare -A toto=$(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}")
 #declare -A toto="($(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}"))"
 echo "going to test in toto:${!toto[@]}"
-for apair in "${!toto[@]}"
+for akey in "${!toto[@]}"
 do
-  echo "in toto:[content](key: value): ($key: $value)"
+  echo "in toto:[content](key: value): (${akey}: ${toto[${akey}]})"
 done
 
 
@@ -91,9 +91,9 @@ cp $BASIC_CONFIGS_DIR/vim/vimrc "$DOTFILES_TRGT_DIR/.vimrc"
 
 # test: show content
 #for key value in "${(@kv)INSTALLED_APPS}"
-for apair in "${!INSTALLED_APPS[@]}"
+for akey in "${!INSTALLED_APPS[@]}"
 do
-  echo "[content](key: value): ($key: $value)"
+  echo "[content](key: value): (${akey}: ${toto[${akey}]})"
 done
 
 exit $?
