@@ -50,6 +50,7 @@ npm_essentials=(
 )
 
 declare -A toto="($(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}"))"
+echo "going to test in toto:"
 for apair in "${!toto[@]}"
 do
   echo "in toto:[content](key: value): ($key: $value)"
