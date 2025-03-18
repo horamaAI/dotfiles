@@ -59,7 +59,7 @@ do
   echo "in toto:[content](key: value): (${akey}: ${toto[${akey}]})"
 done
 
-INSTALLED_APPS+="($(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}" | tail -n1))"
+INSTALLED_APPS+=("$(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}" | tail -n1)")
 echo "keys installed_apps:${!INSTALLED_APPS[@]}"
 for akey in "${!INSTALLED_APPS[@]}"
 do
