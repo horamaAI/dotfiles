@@ -50,8 +50,8 @@ npm_essentials=(
 )
 
 execute_install_command "apt" "sudo apt install ${apt_essentials[*]}"
-declare -A toto=$(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}" | tail -n1)
-#declare -A toto="($(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}"))"
+#declare -A toto=$(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}" | tail -n1)
+declare -A toto=$(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}")
 echo "going to test in toto:${!toto[@]}"
 for akey in "${!toto[@]}"
 do
