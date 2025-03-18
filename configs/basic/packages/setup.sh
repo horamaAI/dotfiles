@@ -10,6 +10,7 @@ echo "fetched ${#yamlscmds[@]} yaml files to read commands from"
 declare -A buffer_associative_array
 #buffer_associative_array+=$(process_commands_in_yamls yamlscmds)
 INSTALLED_APPS+="($(process_commands_in_yamls yamlscmds | tail -n1))"
+echo "keys installed_apps:${!INSTALLED_APPS[@]}"
 
 #info "Installing required packages..."
 
