@@ -9,17 +9,17 @@ make_dir() {
 execute_install_command() {
   local msg=$1
   local command_to_run="$2"
-  #echo "[$msg] attempting to run command: '$command_to_run'"
+  echo "[$msg] attempting to run command: '$command_to_run'"
   declare -A installed_pkgs # key: command run to install packages ($msg), value: space separated packages
   if [[ -n "$command_to_run" ]]; then
     #eval "$command_to_run"
     # ~(@kv)~: parameter expansion zsh style
     installed_pkgs[$msg]=$(echo "$command_to_run" | sed -n "s/^.*${msg} //p")
     # return string form of associative array to be used by calling function
-    #for akey in "${!installed_pkgs[@]}"
-    #do
-    #  echo "tests in execute: [content](key: value): (${akey}: ${installed_pkgs[${akey}]})"
-    #done
+    for akey in "${!installed_pkgs[@]}"
+    do
+      echo "tests in execute: [content](key: value): (${akey}: ${installed_pkgs[${akey}]})"
+    done
     echo "${installed_pkgs[@]@K}" # expand associative array as string with ~@K~ parameter (might not work the same on all shells, for example zsh)
   fi
 }
