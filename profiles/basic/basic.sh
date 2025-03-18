@@ -60,7 +60,7 @@ do
 done
 
 
-INSTALLED_APPS+=$(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}")
+INSTALLED_APPS+="($(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}" | tail -n1))"
 echo "next command (npm) is suspended for now, does nothing, since npm doesn't check context at all, it just reinstall everything"
 #execute_install_command "npm" "sudo npm install -g" "${npm_essentials[*]}"
 
