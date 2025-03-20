@@ -17,13 +17,14 @@ execute_install_command() {
   if [[ -n "$command_to_run" ]]; then
     #eval "$command_to_run"
     # ~(@kv)~: parameter expansion zsh style
-    installed_pkgs[$msg]=$(echo "$command_to_run" | sed -n "s/^.*${msg} //p")
+    installed_pkgs[$msg]+=$(echo "$command_to_run" | sed -n "s/^.*${msg} //p")
     # return string form of associative array to be used by calling function
     #for akey in "${!installed_pkgs[@]}"
     #do
     #  echo "tests in execute: [content](key: value): (${akey}: ${installed_pkgs[${akey}]})"
     #done
     #old solution:`echo "${installed_pkgs[@]@K}" # expand associative array as string with ~@K~ parameter (might not work the same on all shells, for example zsh)`
+    echo "${installed_pkgs[@]@K}"
   fi
 }
 
