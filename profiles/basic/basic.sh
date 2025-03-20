@@ -49,17 +49,15 @@ npm_essentials=(
     # add here any other essential tool to load first (not comma separated)
 )
 
-execute_install_command "apt" "sudo apt install ${apt_essentials[*]}"
-#declare -A toto=$(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}" | tail -n1)
-declare -A toto="($(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}" | tail -n1))"
-#declare -A toto="($(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}"))"
-echo "going to test in toto:${!toto[@]}"
-for akey in "${!toto[@]}"
-do
-  echo "in toto:[content](key: value): (${akey}: ${toto[${akey}]})"
-done
+#declare -A toto="($(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}" | tail -n1))"
+#echo "going to test in toto:${!toto[@]}"
+#for akey in "${!toto[@]}"
+#do
+#  echo "in toto:[content](key: value): (${akey}: ${toto[${akey}]})"
+#done
 
-INSTALLED_APPS+=("$(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}" | tail -n1)")
+#INSTALLED_APPS+=("$(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}" | tail -n1)")
+execute_install_command "apt" "sudo apt install ${apt_essentials[*]}" INSTALLED_APPS
 echo "keys installed_apps:${!INSTALLED_APPS[@]}"
 for akey in "${!INSTALLED_APPS[@]}"
 do
@@ -99,7 +97,7 @@ cp $BASIC_CONFIGS_DIR/vim/vimrc "$DOTFILES_TRGT_DIR/.vimrc"
 #for key value in "${(@kv)INSTALLED_APPS}"
 for akey in "${!INSTALLED_APPS[@]}"
 do
-  echo "[content](key: value): (${akey}: ${toto[${akey}]})"
+  echo "[content](key: value): (${akey}: ${INSTALLED_APPS[${akey}]})"
 done
 
 exit $?

@@ -10,17 +10,20 @@ execute_install_command() {
   local msg=$1
   local command_to_run="$2"
   echo "[$msg] attempting to run command: '$command_to_run'"
-  declare -A installed_pkgs # key: command run to install packages ($msg), value: space separated packages
+  # associative array to store installed packages
+  # key: command run to install packages (variable $msg), value: space separated name of packages
+  # -n to name ref the associative array passed as argument
+  declare -n installed_pkgs=$3
   if [[ -n "$command_to_run" ]]; then
     #eval "$command_to_run"
     # ~(@kv)~: parameter expansion zsh style
     installed_pkgs[$msg]=$(echo "$command_to_run" | sed -n "s/^.*${msg} //p")
     # return string form of associative array to be used by calling function
-    for akey in "${!installed_pkgs[@]}"
-    do
-      echo "tests in execute: [content](key: value): (${akey}: ${installed_pkgs[${akey}]})"
-    done
-    echo "${installed_pkgs[@]@K}" # expand associative array as string with ~@K~ parameter (might not work the same on all shells, for example zsh)
+    #for akey in "${!installed_pkgs[@]}"
+    #do
+    #  echo "tests in execute: [content](key: value): (${akey}: ${installed_pkgs[${akey}]})"
+    #done
+    #old solution:`echo "${installed_pkgs[@]@K}" # expand associative array as string with ~@K~ parameter (might not work the same on all shells, for example zsh)`
   fi
 }
 
@@ -59,17 +62,16 @@ parse_command_entries_in_yaml() {
 process_commands_in_yamls() {
   local -n yamls_cmds=$1
   #declare -p yamls_cmds
+  declare -n installed_pkgs=$2
   echo "yamls_cmds size: ${#yamls_cmds[@]}"
   for cmd_file in "${yamls_cmds[@]}"; do
     local command_entries
     local commands_list
     parse_command_entries_in_yaml command_entries $cmd_file commands_list
   done
-  declare -A buffer_associative_array
   for cmd in "${commands_list[@]}"; do
-    buffer_associative_array+=$(execute_install_command "read from yaml" "$cmd")
+    execute_install_command "read from yaml" "$cmd" installed_pkgs
   done
-  echo "${buffer_associative_array[@]@K}"
 }
 
 find_files_by_extension() {

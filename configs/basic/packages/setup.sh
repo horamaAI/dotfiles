@@ -7,9 +7,8 @@ mapfile -d '' yamlscmds < <(find_files_by_extension $BASIC_CONFIGS_DIR/packages/
 echo "fetched ${#yamlscmds[@]} yaml files to read commands from"
 #declare -p yamlscmds
 #echo "content: ${yamls_cmds[@]}"
-declare -A buffer_associative_array
-#buffer_associative_array+=$(process_commands_in_yamls yamlscmds)
-INSTALLED_APPS+="($(process_commands_in_yamls yamlscmds | tail -n1))"
+#INSTALLED_APPS+="($(process_commands_in_yamls yamlscmds | tail -n1))"
+process_commands_in_yamls yamlscmds INSTALLED_APPS
 echo "keys installed_apps:${!INSTALLED_APPS[@]}"
 
 #info "Installing required packages..."
