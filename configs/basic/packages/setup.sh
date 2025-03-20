@@ -9,7 +9,10 @@ echo "fetched ${#yamlscmds[@]} yaml files to read commands from"
 #echo "content: ${yamls_cmds[@]}"
 #INSTALLED_APPS+="($(process_commands_in_yamls yamlscmds | tail -n1))"
 process_commands_in_yamls yamlscmds INSTALLED_APPS
-echo "keys installed_apps:${!INSTALLED_APPS[@]}"
+for akey in "${!INSTALLED_APPS[@]}"
+do
+  echo "[content INSTALLED_APPS PROCESS_COMMANDS_IN_YAMLS](key: value): (${akey}: ${INSTALLED_APPS[${akey}]})"
+done
 
 #info "Installing required packages..."
 
