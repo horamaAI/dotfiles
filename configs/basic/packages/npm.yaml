@@ -8,5 +8,5 @@ command_entries: # by default install-entries should have is-sudo set to true
     command: npm install -g
     isSudo: false
     pkgs:
-      -
+      - totorox # dummy for tests, to be deleted
 ...
