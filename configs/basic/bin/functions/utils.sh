@@ -17,6 +17,8 @@ execute_install_command() {
   if [[ -n "$command_to_run" ]]; then
     #eval "$command_to_run"
     # ~(@kv)~: parameter expansion zsh style
+    # in the install command crop out: "install", and any option ("-someoption")
+    # => basically just keep the packages names
     installed_pkgs[$msg]+=$(echo "$command_to_run" | sed -n "s/^.*${msg} \(install \)\?\(-[a-zA-Z] \)\?//p")
     # return string form of associative array to be used by calling function
     #for akey in "${!installed_pkgs[@]}"
