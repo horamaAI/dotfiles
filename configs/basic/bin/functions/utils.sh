@@ -35,7 +35,7 @@ validate_model_against_schema() {
   [[ $(pajv -s $1 -d $2 | grep ' valid') ]] && echo "schema validates the data model" || echo "[WARN] schema does NOT validate the data model, please double check the data model"
 }
 
-# reads 'command_entries' (schemas definition, eg: schemas/cmds.yaml) given bya yaml file
+# reads 'command_entries' from yaml file (which has a schema definition, eg: schemas/cmds.yaml)
 # returns list of commands to execute, each with arguments the items (or "pkg"s) to install
 parse_command_entries_in_yaml() {
   local -n commands=$1
@@ -50,9 +50,9 @@ parse_command_entries_in_yaml() {
   for cmd in "${commands[@]}"
   do
     echo "fetch packages for command: $cmd"
-    # parse pkgs for given command (get 'pkgs' items from array 'command_entries' where command is $cmd), i.e.: command_entries[command=$cmd]/pkgs[]
-    # not easy to use yq with environment variables, so did a workaround with a pipe to jq
-    # sed to trim trailing space
+    # command: get items 'pkgs' from array 'command_entries' where command is $cmd, i.e.: command_entries[command=$cmd]/pkgs[]
+    # since not easy to use yq with environment variables, did a workaround with a pipe to jq
+    # sed is used to trim trailing space
     pkgs=$(yq '.' $yamlcommandfile | jq --arg buff "$cmd" '.command_entries[] | select(.command == $buff) | .pkgs[]' | tr -d '"' | tr '\n' ' ' | sed 's/[ \t]*$//')
     #yq '.command_entries[] | .command' "$yamlcommandfile" | tr -d '"' | tr '\n' '\0'
     echo "verify string pkgs: $pkgs"
