@@ -50,7 +50,8 @@ parse_command_entries_in_yaml() {
   for cmd in "${commands[@]}"
   do
     echo "fetch packages for command: $cmd"
-    # not easy to use yq with environment variables, workaround with a pipe to jq
+    # parse pkgs for given command (get 'pkgs' items from array 'command_entries' where command is $cmd), i.e.: command_entries[command=$cmd]/pkgs[]
+    # not easy to use yq with environment variables, so did a workaround with a pipe to jq
     # sed to trim trailing space
     pkgs=$(yq '.' $yamlcommandfile | jq --arg buff "$cmd" '.command_entries[] | select(.command == $buff) | .pkgs[]' | tr -d '"' | tr '\n' ' ' | sed 's/[ \t]*$//')
     #yq '.command_entries[] | .command' "$yamlcommandfile" | tr -d '"' | tr '\n' '\0'
