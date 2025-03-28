@@ -47,6 +47,7 @@ parse_command_entries_in_yaml() {
   validate_model_against_schema $BASIC_CONFIGS_DIR/schemas/cmds.yaml $yamlcommandfile
   # parse yaml files
   mapfile -d '' commands < <(yq '.command_entries[] | .command' $yamlcommandfile | tr -d '"' | tr '\n' '\0')
+  mapfile -d '' commands_for_tests < <(yq '.command_entries[] | [.command, .command_for_test]' $yamlcommandfile | tr -d '"' | tr '\n' '\0')
   for cmd in "${commands[@]}"
   do
     echo "fetch packages for command: $cmd"
