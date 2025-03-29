@@ -38,16 +38,20 @@ validate_model_against_schema() {
 # reads 'command_entries' from yaml file (which has a schema definition, eg: schemas/cmds.yaml)
 # returns list of commands to execute, each with arguments the items (or "pkg"s) to install
 parse_command_entries_in_yaml() {
-  local -n commands=$1
-  local yamlcommandfile=$2
-  local -n commandslist=$3
-  #local commandslist=()
+  #local -n commands=$1
+  #local yamlcommandfile=$2
+  #local -n final_commands_list=$3
+  #local final_commands_list=()
+  local yamlcommandfile=$1
+  local -n final_commands_list=$2
   echo "process file: $yamlcommandfile"
-  echo "attempt to validate data model: $2"
+  echo "attempt to validate data model: $1"
   validate_model_against_schema $BASIC_CONFIGS_DIR/schemas/cmds.yaml $yamlcommandfile
   # parse yaml files
-  mapfile -d '' commands < <(yq '.command_entries[] | .command' $yamlcommandfile | tr -d '"' | tr '\n' '\0')
+  #mapfile -d '' commands < <(yq '.command_entries[] | .command' $yamlcommandfile | tr -d '"' | tr '\n' '\0')
   mapfile -d '' commands_for_tests < <(yq '.command_entries[] | [.command, .command_for_test]' $yamlcommandfile | tr -d '"' | tr '\n' '\0')
+  local commands=()
+  commands=$(echo "${!commands_for_tests[@]}")
   for cmd in "${commands[@]}"
   do
     echo "fetch packages for command: $cmd"
@@ -58,22 +62,23 @@ parse_command_entries_in_yaml() {
     #yq '.command_entries[] | .command' "$yamlcommandfile" | tr -d '"' | tr '\n' '\0'
     echo "verify string pkgs: $pkgs"
     if [[ "$pkgs" != "null" ]]; then
-      commandslist+=("sudo ${cmd} ${pkgs}")
+      final_commands_list+=("sudo ${cmd} ${pkgs}")
     fi
   done
 }
 
 process_commands_in_yamls() {
-  local -n yamls_cmds=$1
-  #declare -p yamls_cmds
+  local -n yamls_cmds_files=$1
+  #declare -p yamls_cmds_files
   declare -n installed_pkgs=$2
-  echo "yamls_cmds size: ${#yamls_cmds[@]}"
-  for cmd_file in "${yamls_cmds[@]}"; do
-    local command_entries
-    local commands_list
-    parse_command_entries_in_yaml command_entries $cmd_file commands_list
+  echo "yamls_cmds_files size: ${#yamls_cmds_files[@]}"
+  for cmd_file in "${yamls_cmds_files[@]}"; do
+    #local command_entries
+    local final_commands_list
+    #parse_command_entries_in_yaml command_entries $cmd_file final_commands_list
+    parse_command_entries_in_yaml $cmd_file final_commands_list
   done
-  for cmd in "${commands_list[@]}"; do
+  for cmd in "${final_commands_list[@]}"; do
     execute_install_command "read from yaml" "$cmd" installed_pkgs
   done
 }

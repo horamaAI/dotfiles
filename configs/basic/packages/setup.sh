@@ -2,13 +2,13 @@
 
 COMMENT=\#*
 
-declare -an yamlscmds
-mapfile -d '' yamlscmds < <(find_files_by_extension $BASIC_CONFIGS_DIR/packages/ yaml)
-echo "fetched ${#yamlscmds[@]} yaml files to read commands from"
-#declare -p yamlscmds
+declare -an yamls_cmds_files
+mapfile -d '' yamls_cmds_files < <(find_files_by_extension $BASIC_CONFIGS_DIR/packages/ yaml)
+echo "fetched ${#yamls_cmds_files[@]} yaml files to read commands from"
+#declare -p yamls_cmds_files
 #echo "content: ${yamls_cmds[@]}"
-#INSTALLED_APPS+="($(process_commands_in_yamls yamlscmds | tail -n1))"
-process_commands_in_yamls yamlscmds INSTALLED_APPS
+#INSTALLED_APPS+="($(process_commands_in_yamls yamls_cmds_files | tail -n1))"
+process_commands_in_yamls yamls_cmds_files INSTALLED_APPS
 for akey in "${!INSTALLED_APPS[@]}"
 do
   echo "[content INSTALLED_APPS PROCESS_COMMANDS_IN_YAMLS](key: value): (${akey}: ${INSTALLED_APPS[${akey}]})"
