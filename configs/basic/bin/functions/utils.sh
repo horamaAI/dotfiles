@@ -49,7 +49,10 @@ parse_command_entries_in_yaml() {
   validate_model_against_schema $BASIC_CONFIGS_DIR/schemas/cmds.yaml $yamlcommandfile
   # parse yaml files
   #mapfile -d '' commands < <(yq '.command_entries[] | .command' $yamlcommandfile | tr -d '"' | tr '\n' '\0')
-  # buffer array, pair: [command, command_for_test]
+  # 'buffer', an array of pairs: {command: command_for_test},
+  # where command_for_test can be null
+  local -a buff
+  mapfile -d '' buff < <(yq '[.command_entries[] | {(.command|tostring): .command_for_test}]')
   mapfile -d '' commands_for_tests < <(yq '.command_entries[] | [.command, .command_for_test]' $yamlcommandfile | tr -d '"' | tr '\n' '\0')
   local commands=()
   commands=$(echo "${!commands_for_tests[@]}")
