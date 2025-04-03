@@ -54,6 +54,7 @@ parse_command_entries_in_yaml() {
   local -a buff
   mapfile -d '' buff < <(yq '[.command_entries[] | {(.command|tostring): .command_for_test}]')
   mapfile -d '' commands_for_tests < <(yq '.command_entries[] | [.command, .command_for_test]' $yamlcommandfile | tr -d '"' | tr '\n' '\0')
+  mapfile -d '' arr < <(yq '.' toto.yaml | jq '.command_entries[] | [.command, .command_for_test] | .[]' |  tr -d '"' | tr '\n' '\0')
   local commands=()
   commands=$(echo "${!commands_for_tests[@]}")
   for cmd in "${commands[@]}"
