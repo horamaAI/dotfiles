@@ -35,7 +35,9 @@ IFS="$buff_ifs"
 # 1. [preferred] 1D associative array of space separated packages names, i.e. ["cmd"  -> "pkg1 pkg2 ..."],
 # 2. 2D associative array of array of packages (["cmd" -> [pkg1, pkg2, ...]])
 declare -A INSTALLED_APPS
+declare -A INSTALLED_APPS_TEST_CMDS
 export INSTALLED_APPS
+export INSTALLED_APPS_TEST_CMDS
 
 # 1. always install first build-essential, and other pre-required tools
 apt_essentials=(
@@ -61,8 +63,11 @@ npm_essentials=(
 #INSTALLED_APPS+=("$(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}" | tail -n1)")
 
 # install prerequisites
+# no need to register command for testing, 'apt' test command is defined in
+# file 'apt.yaml'
 execute_install_command "apt" "sudo apt install ${apt_essentials[*]}" INSTALLED_APPS
 echo "next command (npm) is suspended (for now), does nothing, since npm doesn't check context at all, it just reinstall everything"
+INSTALLED_APPS_TEST_CMDS[npm]='npm list -g --depth=0 | grep -q '
 #execute_install_command "npm" "sudo npm install -g ${npm_essentials[*]}" INSTALLED_APPS
 
 # buff_ifs="$IFS"
