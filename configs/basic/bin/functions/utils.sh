@@ -44,6 +44,7 @@ parse_command_entries_in_yaml() {
   #local final_commands_list=()
   local yamlcommandfile=$1
   local -n final_commands_list=$2
+  local -n commands_tests=$3
   echo "process file: $yamlcommandfile"
   echo "attempt to validate data model: $1"
   validate_model_against_schema $BASIC_CONFIGS_DIR/schemas/cmds.yaml $yamlcommandfile
@@ -76,12 +77,13 @@ process_commands_in_yamls() {
   local -n yamls_cmds_files=$1
   #declare -p yamls_cmds_files
   declare -n installed_pkgs=$2
+  declare -n installed_apps_test_cmds=$3
   echo "yamls_cmds_files size: ${#yamls_cmds_files[@]}"
   for cmd_file in "${yamls_cmds_files[@]}"; do
     #local command_entries
     local final_commands_list
     #parse_command_entries_in_yaml command_entries $cmd_file final_commands_list
-    parse_command_entries_in_yaml $cmd_file final_commands_list
+    parse_command_entries_in_yaml $cmd_file final_commands_list installed_apps_test_cmds
   done
   for cmd in "${final_commands_list[@]}"; do
     execute_install_command "read from yaml" "$cmd" installed_pkgs
