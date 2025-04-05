@@ -7,6 +7,27 @@ cd "$DIR"
 
 # pwd
 
+# define global variables:
+# 'INSTALLED_APPS': needed to store installed tools, apps, packages, etc.
+# it will be utilized later to validate that those installed packages were
+# properly installed (or not).
+# 'INSTALLED_APPS' is a global associative array of type:
+# ~"cmd" -> [list_of_packages_to_install_using_the_cmd]~
+# ~cmd~ is the command that was used to install the package.
+# 2 solutions design for the associative array:
+# 1. [preferred] 1D associative array of space separated packages names, i.e. ["cmd"  -> "pkg1 pkg2 ..."],
+# 2. 2D associative array of array of packages (["cmd" -> [pkg1, pkg2, ...]])
+#
+# 'INSTALLED_APPS_TEST_CMDS' is an associative array that stores the commands
+# to use in order to test if the installation went properly
+# 'INSTALLED_APPS' and 'INSTALLED_APPS_TEST_CMDS' share the same key(s)
+# eg: ['apt' -> 'pkg1 pkg2 etc.'], ['apt' -> 'cmnd_to_test_installed_pkgs']
+# advantage is: with same key, have access to different type of data
+declare -A INSTALLED_APPS
+declare -A INSTALLED_APPS_TEST_CMDS
+export INSTALLED_APPS
+export INSTALLED_APPS_TEST_CMDS
+
 # 0. set up directories structure, and other basic utils:
 # fetch basic environment variables, after that basic environment variables should be loaded and ready to be used
 source $DOTFILES_ENV_DIR/configs/basic/env/basic.env
@@ -25,19 +46,6 @@ IFS=:
     done
     )
 IFS="$buff_ifs"
-
-# variable 'INSTALLED_APPS' needed to store installed tools/apps/packages/etc. since will utilized later to validate that packages were properly installed (or not)
-# 'INSTALLED_APPS' is a global associative array of type: ~"cmd" -> [list_of_packages_to_install_using_the_cmd]~
-# ~cmd~ is the command that was used to install.
-#   - the command to test if the installation went properly is defined in the other associative array, with which they share keys, eg: ['apt' -> 'pkg1 pkg2 etc.'], ['apt' -> 'cmnd_to_test_installed_pkgs']
-#   - advantage is with the same key have access to two different type of data
-# 2 solutions design for the associative array:
-# 1. [preferred] 1D associative array of space separated packages names, i.e. ["cmd"  -> "pkg1 pkg2 ..."],
-# 2. 2D associative array of array of packages (["cmd" -> [pkg1, pkg2, ...]])
-declare -A INSTALLED_APPS
-declare -A INSTALLED_APPS_TEST_CMDS
-export INSTALLED_APPS
-export INSTALLED_APPS_TEST_CMDS
 
 # 1. always install first build-essential, and other pre-required tools
 apt_essentials=(
@@ -63,8 +71,11 @@ npm_essentials=(
 #INSTALLED_APPS+=("$(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}" | tail -n1)")
 
 # install prerequisites
-# no need to register command for testing, 'apt' test command is defined in
-# file 'apt.yaml'
+# !!: careful: installing a command (through 'execute_install_command')
+# usually has to be preceded by registering the command used for
+# testing (add line to: 'INSTALLED_APPS_TEST_CMDS')
+# here, no need to add command for testing 'apt' commands, it's already
+# defined in yaml file 'apt.yaml'
 execute_install_command "apt" "sudo apt install ${apt_essentials[*]}" INSTALLED_APPS
 echo "next command (npm) is suspended (for now), does nothing, since npm doesn't check context at all, it just reinstall everything"
 INSTALLED_APPS_TEST_CMDS[npm]='npm list -g --depth=0 | grep -q '
@@ -80,7 +91,7 @@ INSTALLED_APPS_TEST_CMDS[npm]='npm list -g --depth=0 | grep -q '
 #     )
 # IFS="$buff_ifs"
 
-# 2. install other required tools and setup:
+# 2. install other required tools and setup: (sourced -> variables propagated)
 # basic env, tools, aliases, etc.
 . $BASIC_CONFIGS_DIR/packages/setup.sh
 
