@@ -52,10 +52,14 @@ parse_command_entries_in_yaml() {
   #mapfile -d '' commands < <(yq '.command_entries[] | .command' $yamlcommandfile | tr -d '"' | tr '\n' '\0')
   # 'buffer', an array of pairs: {command: command_for_test},
   # where command_for_test can be null
+  #
+  # manual parsing is really not appealing, why not use yq's ~@tsv~ (tab
+  # separated values)
+  # ~yq --arg buff '' '.command_entries[] | [.command, .command_for_test //
+  # $buff, .description] | @tsv' configs/basic/packages/apt.yaml~
   local -a buff
-  mapfile -d '' buff < <(yq '[.command_entries[] | {(.command|tostring): .command_for_test}]')
-  mapfile -d '' commands_for_tests < <(yq '.command_entries[] | [.command, .command_for_test]' $yamlcommandfile | tr -d '"' | tr '\n' '\0')
-  mapfile -d '' arr < <(yq '.' toto.yaml | jq '.command_entries[] | [.command, .command_for_test] | .[]' |  tr -d '"' | tr '\n' '\0')
+  mapfile -d '' buff < <(yq --arg buff '' '.command_entries[] | [.command, .command_for_test // $buff, .description] | @tsv' $yamlcommandfile)
+  #mapfile -d '' commands_for_tests < <(yq '.command_entries[] | [.command, .command_for_test]' $yamlcommandfile | tr -d '"' | tr '\n' '\0')
   local commands=()
   commands=$(echo "${!commands_for_tests[@]}")
   for cmd in "${commands[@]}"
@@ -63,7 +67,7 @@ parse_command_entries_in_yaml() {
     echo "fetch packages for command: $cmd"
     # command: get items 'pkgs' from array 'command_entries' where command is $cmd, i.e.: command_entries[command=$cmd]/pkgs[]
     # since not easy to use yq with environment variables, did a workaround with a pipe to jq
-    # sed is used to trim trailing space
+    # sed is only used here to trim trailing space
     pkgs=$(yq '.' $yamlcommandfile | jq --arg buff "$cmd" '.command_entries[] | select(.command == $buff) | .pkgs[]' | tr -d '"' | tr '\n' ' ' | sed 's/[ \t]*$//')
     #yq '.command_entries[] | .command' "$yamlcommandfile" | tr -d '"' | tr '\n' '\0'
     echo "verify string pkgs: $pkgs"
