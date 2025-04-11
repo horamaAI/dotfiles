@@ -59,6 +59,7 @@ parse_command_entries_in_yaml() {
   # $buff, .description] | @tsv' configs/basic/packages/apt.yaml~
   local -a buff
   mapfile -d '' buff < <(yq --arg buff '' '.command_entries[] | [.command, .command_for_test // $buff, .description] | @tsv' $yamlcommandfile)
+
   #mapfile -d '' commands_for_tests < <(yq '.command_entries[] | [.command, .command_for_test]' $yamlcommandfile | tr -d '"' | tr '\n' '\0')
   local commands=()
   commands=$(echo "${!commands_for_tests[@]}")
