@@ -44,25 +44,32 @@ parse_command_entries_in_yaml() {
   #local final_commands_list=()
   local yamlcommandfile=$1
   local -n final_commands_list=$2
+  # reminder: 'commands_tests' is an associative array of yaml fields contents: [.command, .command_for_test], where 'test_command' can be empty
   local -n commands_tests=$3
   echo "process file: $yamlcommandfile"
-  echo "attempt to validate data model: $1"
+  echo "first, attempt to validate that data is valid per model: $1"
   validate_model_against_schema $BASIC_CONFIGS_DIR/schemas/cmds.yaml $yamlcommandfile
   # parse yaml files
   #mapfile -d '' commands < <(yq '.command_entries[] | .command' $yamlcommandfile | tr -d '"' | tr '\n' '\0')
-  # 'buffer', an array of pairs: {command: command_for_test},
-  # where command_for_test can be null
   #
   # manual parsing is really not appealing, why not use yq's ~@tsv~ (tab
   # separated values)
   # ~yq --arg buff '' '.command_entries[] | [.command, .command_for_test //
   # $buff, .description] | @tsv' configs/basic/packages/apt.yaml~
-  local -a buff
-  mapfile -d '' buff < <(yq --arg buff '' '.command_entries[] | [.command, .command_for_test // $buff, .description] | @tsv' $yamlcommandfile)
-  local -A ffs="($(yq '.' configs/basic/packages/apt.yaml | jq --arg buff '' '.command_entries[] | "[" + (.command | @sh) + "]=" + (.command_for_test // $buff | @sh)' | tr -d \"))"
+  #local -a buff
+  #mapfile -d '' buff < <(yq --arg buff '' '.command_entries[] | [.command, .command_for_test // $buff, .description] | @tsv' $yamlcommandfile)
   #mapfile -d '' commands_for_tests < <(yq '.command_entries[] | [.command, .command_for_test]' $yamlcommandfile | tr -d '"' | tr '\n' '\0')
+
+  # fetch '.command' and '.command_for_test' if exists
+  local -A buffer="($(yq '.' configs/basic/packages/apt.yaml | jq --arg buff '' '.command_entries[] | "[" + (.command | @sh) + "]=" + (.command_for_test // $buff | @sh)' | tr -d \"))"
+  for key in "${!buffer[@]}"
+  do
+    #echo "buff: [/$key/]: (${buffer[$key]})"
+    commands_tests[$key]+=${buffer[$key]}
+  done
   local commands=()
-  commands=$(echo "${!commands_for_tests[@]}")
+  #commands=$(echo "${!commands_for_tests[@]}")
+  commands=$(echo "${!commands_tests[@]}")
   for cmd in "${commands[@]}"
   do
     echo "fetch packages for command: $cmd"
