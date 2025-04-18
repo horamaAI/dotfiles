@@ -62,6 +62,7 @@ parse_command_entries_in_yaml() {
 
   # fetch '.command' and '.command_for_test' if exists
   yq '.' configs/basic/packages/apt.yaml | jq --arg buff '' '.command_entries[] | "[" + (.command | @sh) + "]=" + (.command_for_test // $buff | @sh)' | tr -d \"
+  echo "====>> holly sun ghost"
   local -A buffer="($(yq '.' configs/basic/packages/apt.yaml | jq --arg buff '' '.command_entries[] | "[" + (.command | @sh) + "]=" + (.command_for_test // $buff | @sh)' | tr -d \"))"
   for key in "${!buffer[@]}"
   do
