@@ -70,6 +70,8 @@ npm_essentials=(
 
 #INSTALLED_APPS+=("$(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}" | tail -n1)")
 
+#TO DELETE, temporary fast solution when debugging
+sudo apt install "${apt_essentials[*]}"
 # install prerequisites
 # !!: careful: installing a command (through 'execute_install_command')
 # usually has to be preceded by registering the command used for
