@@ -114,6 +114,10 @@ do
   echo "[content INSTALLED_APPS](key: value): (${akey}: ${INSTALLED_APPS[${akey}]})"
 done
 
+for akey in "${!INSTALLED_APPS_TEST_CMDS[@]}"
+do
+  echo "[content INSTALLED_APPS_TEST_CMDS](key: value): (${akey}: ${INSTALLED_APPS_TEST_CMDS[${akey}]})"
+done
 exit $?
 
 #apt_pkgs=$PROFILE_CONFIGS_DIR/apt.list
