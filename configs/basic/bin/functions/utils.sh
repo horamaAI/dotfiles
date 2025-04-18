@@ -15,7 +15,7 @@ execute_install_command() {
   declare -n installed_pkgs=$3
   echo "[$msg] attempting to run command: '$command_to_run'"
   if [[ -n "$command_to_run" ]]; then
-    eval "$command_to_run"
+    #eval "$command_to_run"
     # needed to keep trace of installed packages:
     # in the install command crop out: "install", and any option ("-someoption"), i.e.: basically just keep the packages names (space separated)
     installed_pkgs[$msg]+=$(echo "$command_to_run" | sed -n "s/^.*${msg} \(install \)\?\(-[a-zA-Z] \)\?//p")
