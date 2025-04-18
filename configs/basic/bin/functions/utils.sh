@@ -40,10 +40,10 @@ validate_model_against_schema() {
 parse_command_entries_in_yaml() {
   #local -n commands=$1
   #local yamlcommandfile=$2
-  #local -n final_commands_list=$3
-  #local final_commands_list=()
+  #local -n final_commands_list_=$3
+  #local final_commands_list_=()
   local yamlcommandfile=$1
-  local -n final_commands_list=$2
+  local -n final_commands_list_=$2
   # reminder: 'commands_tests' is an associative array of yaml fields contents: [.command, .command_for_test], where 'test_command' can be empty
   local -n commands_tests=$3
   echo "process file: $yamlcommandfile"
@@ -64,12 +64,12 @@ parse_command_entries_in_yaml() {
   local -A buffer="($(yq '.' configs/basic/packages/apt.yaml | jq --arg buff '' '.command_entries[] | "[" + (.command | @sh) + "]=" + (.command_for_test // $buff | @sh)' | tr -d \"))"
   for key in "${!buffer[@]}"
   do
-    #echo "buff: [/$key/]: (${buffer[$key]})"
+    echo "buff key-value: [/$key/]: (${buffer[$key]})"
+    commands+=$key
     commands_tests[$key]+=${buffer[$key]}
   done
   local commands=()
   #commands=$(echo "${!commands_for_tests[@]}")
-  commands=$(echo "${!commands_tests[@]}")
   for cmd in "${commands[@]}"
   do
     echo "fetch packages for command: $cmd"
@@ -80,18 +80,18 @@ parse_command_entries_in_yaml() {
     #yq '.command_entries[] | .command' "$yamlcommandfile" | tr -d '"' | tr '\n' '\0'
     echo "verify string pkgs: $pkgs"
     if [[ "$pkgs" != "null" ]]; then
-      final_commands_list+=("sudo ${cmd} ${pkgs}")
+      final_commands_list_+=("sudo ${cmd} ${pkgs}")
     fi
   done
 }
 
 process_commands_in_yamls() {
-  local -n yamls_cmds_files=$1
+  local -n yamls_cmds_files_=$1
   #declare -p yamls_cmds_files
   declare -n installed_pkgs=$2
   declare -n installed_apps_test_cmds=$3
-  echo "yamls_cmds_files size: ${#yamls_cmds_files[@]}"
-  for cmd_file in "${yamls_cmds_files[@]}"; do
+  echo "yamls_cmds_files size: ${#yamls_cmds_files_[@]}"
+  for cmd_file in "${yamls_cmds_files_[@]}"; do
     #local command_entries
     local final_commands_list
     #parse_command_entries_in_yaml command_entries $cmd_file final_commands_list
