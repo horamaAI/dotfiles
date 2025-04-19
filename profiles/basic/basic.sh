@@ -7,31 +7,33 @@ cd "$DIR"
 
 # pwd
 
-# define global variables:
-# 'INSTALLED_APPS': needed to store installed tools, apps, packages, etc.
-# it will be utilized later to validate that those installed packages were
+# global variables:
+# I. 'INSTALLED_APPS': needed to store installed tools, apps, packages, etc.
+# - will be utilized later to validate that installed packages were
 # properly installed (or not).
-# 'INSTALLED_APPS' is a global associative array of type:
-# ~"cmd" -> [list_of_packages_to_install_using_the_cmd]~
-# ~cmd~ is the command that was used to install the package.
-# 2 solutions design for the associative array:
-# 1. [preferred] 1D associative array of space separated packages names, i.e. ["cmd"  -> "pkg1 pkg2 ..."],
+# - global associative array of type:
+# -- key: [cmd]; value: [list_of_packages_to_install_using_the_cmd]~
+# tested 2 solutions design for the associative array:
+# 1. [selected] 1D associative array, space separated packages, i.e.:
+#  ["cmd"  -> "pkg1 pkg2 ..."],
 # 2. 2D associative array of array of packages (["cmd" -> [pkg1, pkg2, ...]])
 #
-# 'INSTALLED_APPS_TEST_CMDS' is an associative array that stores the commands
-# to use in order to test if the installation went properly
-# 'INSTALLED_APPS' and 'INSTALLED_APPS_TEST_CMDS' share the same key(s)
+# II. 'INSTALLED_APPS_TEST_CMDS': associative array that stores tests commands
+# to use to validate that installations went properly
+# - 'INSTALLED_APPS' and 'INSTALLED_APPS_TEST_CMDS' share the same key(s)
 # eg: ['apt' -> 'pkg1 pkg2 etc.'], ['apt' -> 'cmnd_to_test_installed_pkgs']
-# advantage is: with same key, have access to different type of data
+# advantage: with same key, have access to different type of data
 declare -A INSTALLED_APPS
 declare -A INSTALLED_APPS_TEST_CMDS
 export INSTALLED_APPS
 export INSTALLED_APPS_TEST_CMDS
 
 # 0. set up directories structure, and other basic utils:
-# fetch basic environment variables, after that basic environment variables should be loaded and ready to be used
+# fetch basic environment variables,
+# after that, basic environment variables should be loaded
+# and ready to be used
 source $DOTFILES_ENV_DIR/configs/basic/env/basic.env
-# load utils
+# load more, general, utils
 #source $BASIC_CONFIGS_DIR/bin/functions/misc.sh
 for funcs in $BASIC_CONFIGS_DIR/bin/functions/*; do
   source $funcs
@@ -50,16 +52,19 @@ IFS="$buff_ifs"
 # 1. always install first build-essential, and other pre-required tools
 apt_essentials=(
     build-essential # g++, make, etc.
-    yq # to parse yaml files containing required installations, will install python3
+    yq # to parse yamls containing required installations (installs python3)
     npm # for pajv
-    stow # for linking generated target profile and home (automatic symlinks)
+    stow # to link generated target profiles into home (automatic symlinks)
     # add here any other essential tool to load first (not comma separated)
 )
 
 npm_essentials=(
-    pajv # yaml files schema validator (to validate yaml instance against schema)
+    pajv # yamls schema validator (validates yaml instance against schema)
     # add here any other essential tool to load first (not comma separated)
 )
+
+#To use temporarily, very cheap solution needed when debugging
+#eval "sudo apt update && sudo apt install ${apt_essentials[*]}"
 
 #declare -A toto="($(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}" | tail -n1))"
 #echo "going to test in toto:${!toto[@]}"
@@ -68,19 +73,15 @@ npm_essentials=(
 #  echo "in toto:[content](key: value): (${akey}: ${toto[${akey}]})"
 #done
 
-#INSTALLED_APPS+=("$(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}" | tail -n1)")
-
-#TO DELETE, temporary fast solution when debugging
-eval "sudo apt update && sudo apt install ${apt_essentials[*]}"
 # install prerequisites
-# !!: careful: installing a command (through 'execute_install_command')
+# careful!: before installing a command through 'execute_install_command'
 # usually has to be preceded by registering the command used for
-# testing (add line to: 'INSTALLED_APPS_TEST_CMDS')
-# here, no need to add command for testing 'apt' commands, it's already
+# testing, i.e.: add line into 'INSTALLED_APPS_TEST_CMDS', through
+# reading 'parse_command_entries_in_yaml' for example.
+# Here, no need to add command for testing 'apt' commands, it's already
 # defined in yaml file 'apt.yaml'
 execute_install_command "apt" "sudo apt install ${apt_essentials[*]}" INSTALLED_APPS
 echo "next command (npm) is suspended (for now), does nothing, since npm doesn't check context at all, it just reinstall everything"
-INSTALLED_APPS_TEST_CMDS[npm]='npm list -g --depth=0 | grep -q '
 #execute_install_command "npm" "sudo npm install -g ${npm_essentials[*]}" INSTALLED_APPS
 
 # buff_ifs="$IFS"
