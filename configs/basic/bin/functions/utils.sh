@@ -9,17 +9,18 @@ make_dir() {
 execute_install_command() {
   local msg=$1
   local command_to_run="$2"
-  # 3rd argument: associative array that stores installed packages:
-  # - key: command run to install packages (variable $msg); - value: space separated name of packages
+  # reference to 'INSTALLED_APPS', used to keep trace of installed packages,
+  # (see 'profiles/basic/basic.h')
+  # - key: $msg, command used to install packages
+  # - value: space separated name of packages
   # "-n" used to name ref the associative array passed as argument
   declare -n installed_pkgs=$3
   echo "[$msg] attempting to run command: '$command_to_run'"
   if [[ -n "$command_to_run" ]]; then
     #eval "$command_to_run"
-    # needed to keep trace of installed packages:
-    # in the install command crop out: "install", and any option ("-someoption"), i.e.: basically just keep the packages names (space separated)
+    # crop "install" and any option ("-someoption"),
+    # i.e.: basically just keep the packages names (space separated)
     installed_pkgs[$msg]+=$(echo "$command_to_run" | sed -n "s/^.*${msg} \(install \)\?\(-[a-zA-Z] \)\?//p")
-    #old solution (instead of passing argument as nameref):`echo "${installed_pkgs[@]@K}" # expand associative array as string with ~@K~ parameter (might not work the same on all shells, for example zsh)`
     #for akey in "${!installed_pkgs[@]}"
     #do
     #  echo "tests in execute: [content](key: value): (${akey}: ${installed_pkgs[${akey}]})"

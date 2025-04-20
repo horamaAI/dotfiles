@@ -49,7 +49,7 @@ IFS=:
     )
 IFS="$buff_ifs"
 
-# 1. always install first build-essential, and other pre-required tools
+# 1. always install first build-essential and other pre-required tools
 apt_essentials=(
     build-essential # g++, make, etc.
     yq # to parse yamls containing required installations (installs python3)
@@ -63,9 +63,9 @@ npm_essentials=(
     # add here any other essential tool to load first (not comma separated)
 )
 
-#To use temporarily, very cheap solution needed when debugging
+# [TO_DELETE] after use, temporary very cheap solutions used when debugging
 #eval "sudo apt update && sudo apt install ${apt_essentials[*]}"
-
+#
 #declare -A toto="($(execute_install_command "apt" "sudo apt install ${apt_essentials[*]}" | tail -n1))"
 #echo "going to test in toto:${!toto[@]}"
 #for akey in "${!toto[@]}"
@@ -74,12 +74,12 @@ npm_essentials=(
 #done
 
 # install prerequisites
-# careful!: before installing a command through 'execute_install_command'
-# usually has to be preceded by registering the command used for
-# testing, i.e.: add line into 'INSTALLED_APPS_TEST_CMDS', through
-# reading 'parse_command_entries_in_yaml' for example.
-# Here, no need to add command for testing 'apt' commands, it's already
-# defined in yaml file 'apt.yaml'
+# careful!: before installing a command through 'execute_install_command',
+# usually has to be preceded by storing the command used for
+# testing, i.e.: add line into 'INSTALLED_APPS_TEST_CMDS', eg.: used
+# in 'parse_command_entries_in_yaml'
+# in next line, no need to add testing command 'apt', it is already
+# given in yaml file 'apt.yaml'
 execute_install_command "apt" "sudo apt install ${apt_essentials[*]}" INSTALLED_APPS
 echo "next command (npm) is suspended (for now), does nothing, since npm doesn't check context at all, it just reinstall everything"
 #execute_install_command "npm" "sudo npm install -g ${npm_essentials[*]}" INSTALLED_APPS
@@ -94,7 +94,7 @@ echo "next command (npm) is suspended (for now), does nothing, since npm doesn't
 #     )
 # IFS="$buff_ifs"
 
-# 2. install other required tools and setup: (sourced -> variables propagated)
+# 2. install other required tools and setup (sourced => variables propagated):
 # basic env, tools, aliases, etc.
 . $BASIC_CONFIGS_DIR/packages/setup.sh
 
@@ -110,13 +110,13 @@ cp $BASIC_CONFIGS_DIR/vim/vimrc "$DOTFILES_TRGT_DIR/.vimrc"
 # 6. test that everything went well
 #bash $BASIC_CONFIGS_DIR/tests/test.bats
 
-# test: show content 
-#for key value in "${(@kv)INSTALLED_APPS}" # where ~(@kv)~ is a parameter expansion zsh style, so might not work with other shells, bash for example
+# [TO_DELETE] after use, temporary very cheap solutions used when debugging
+# in "${(@kv)INSTALLED_APPS}", ~(@kv)~ is a parameter expansion zsh style,
+# so might not work with other shells, bash for example
 for akey in "${!INSTALLED_APPS[@]}"
 do
   echo "[content INSTALLED_APPS](key: value): (${akey}: ${INSTALLED_APPS[${akey}]})"
 done
-
 for akey in "${!INSTALLED_APPS_TEST_CMDS[@]}"
 do
   echo "[content INSTALLED_APPS_TEST_CMDS](key: value): (${akey}: ${INSTALLED_APPS_TEST_CMDS[${akey}]})"
