@@ -21,15 +21,16 @@ execute_install_command() {
     # crop "install" and any option ("-someoption"),
     # i.e.: basically just keep the packages names (space separated)
     installed_pkgs[$msg]+=$(echo "$command_to_run" | sed -n "s/^.*${msg} \(install \)\?\(-[a-zA-Z] \)\?//p")
+    # [TO_DELETE] after use, temporary very cheap solutions used when debugging
     #for akey in "${!installed_pkgs[@]}"
     #do
     #  echo "tests in execute: [content](key: value): (${akey}: ${installed_pkgs[${akey}]})"
     #done
-    echo "${installed_pkgs[@]@K}" # display as info log the aliased associative array of installed packages
+    echo "${installed_pkgs[@]@K}" # just info log, not return value
   fi
 }
 
-# validate that model satisfy schema
+# validate that model satisfies schema
 # $1 is the schema, and $2 the data
 # eg: "pajv -s $BASIC_CONFIGS_DIR/schemas/cmds.yaml -d $yamlcommandfile"
 validate_model_against_schema() {
